@@ -30,7 +30,7 @@ Provides, similar to TemporaryFolder in junit4, utility methods create temp file
 You have to register it in your Spek as follows:
 ```kotlin
 object MySpec: Spek({
-    val tempFolder = TempFolder()
+    val tempFolder = TempFolder.perTest() //or perAction() or perGroup()
     registerListener(tempFolder)
     
     it ("..."){
