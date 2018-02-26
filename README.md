@@ -1,4 +1,7 @@
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
+[![Build Status](https://travis-ci.org/robstoll/tutteli-spek-extensions.svg?branch=master)](https://travis-ci.org/robstoll/tutteli-spek-extensions/branches)
+[![Coverage](https://codecov.io/github/robstoll/tutteli-spek-extensions/coverage.svg?branch=master)](https://codecov.io/github/robstoll/tutteli-spek-extensions?branch=master)
+
 
 # Tutteli spek extension
 A set of [Spek](http://spekframework.org/) extensions such as [TempFolder](#tempfolder).
