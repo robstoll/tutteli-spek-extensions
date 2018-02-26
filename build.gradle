@@ -2,16 +2,12 @@ buildscript {
     project.version ='0.1.0-SNAPSHOT'
     ext {
         kotlin_version = '1.2.21'
+
+        //testing
+        junit_platform_version = '1.1.0'
+        spek_version = '1.1.5'
         atrium_version = '0.6.0'
         mockito_kotlin_version = '1.5.0'
-        ghPages_version = project.version
-        dokka_version = '0.9.14'
-        dokka_sourceMapping = 'tree/master'
-
-        //spek.gradle
-        jacoco_tool_version = '0.8.0'
-        spek_version = '1.1.5'
-        junit_platform_version = '1.1.0'
 
         //publish.gradle
         bintray_version = '1.7.3'
@@ -19,8 +15,9 @@ buildscript {
         github_url = "https://github.com/robstoll/${project.name}"
         publish_vcsUrl = "${github_url}.git"
 
-        //gh-pages.gradle
-        docProjects = [project]
+        //dokka
+        dokka_version = '0.9.14'
+        dokka_sourceMapping = 'tree/master'
 
         projectPrefixed = { String name -> project(":${rootProject.name}-$name") }
         srcKotlin = 'src/main/kotlin'
@@ -34,7 +31,12 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
+        classpath "org.junit.platform:junit-platform-gradle-plugin:$junit_platform_version"
     }
+}
+
+plugins {
+    id 'ch.tutteli.junitjacoco' version '0.2.0'
 }
 
 repositories {
@@ -52,15 +54,25 @@ dependencies {
         exclude group: 'org.jetbrains.kotlin'
     }
 
-    testCompile("com.nhaarman:mockito-kotlin:$mockito_kotlin_version") {
+    testRuntime("org.jetbrains.spek:spek-junit-platform-engine:$spek_version") {
+        exclude group: 'org.junit.platform'
         exclude group: 'org.jetbrains.kotlin'
     }
-    compile("ch.tutteli:atrium-cc-en_UK-robstoll:$atrium_version") {
+    testCompile("ch.tutteli:atrium-cc-en_UK-robstoll:$atrium_version") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+    testCompile("com.nhaarman:mockito-kotlin:$mockito_kotlin_version") {
         exclude group: 'org.jetbrains.kotlin'
     }
 }
 
-apply from: "${rootProject.projectDir}/gradle/scripts/spek.gradle"
+junitPlatform {
+    filters {
+        engines {
+            include 'spek'
+        }
+    }
+}
 
 dokka {
     outputFormat = 'html'
@@ -88,3 +100,43 @@ ext {
 }
 
 apply from: "${rootProject.projectDir}/gradle/scripts/publish.gradle"
+
+/*
+
+Release & deploy a commit
+--------------------------------
+1. change atrium_version in build.gradle to X.Y.Z
+2. update github pages:
+    a) gr ghPages
+    b) change version number in atrium-gh-pages/latest/index.html
+    c) add new version to atrium-gh-pages/README.md
+    d) commit & push changes
+3. update master:
+    a) point to the tag
+        1) search for old version and replace with new (gradle, maven and section own assertion verb in README.md)
+        2) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage in README.md)
+        3) search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
+        4) search for `latest#/doc` and replace with `X.Y.Z/doc` (README.md and differences.md)
+        5) Remove the warning in README.md about taking a sneak peak (copy it, well be added afterwards)
+    b) Update REAMDE -> Use own Assertion Verbs -> link to atriumVerbs if it changed
+    b) commit (modified build.gradle, README.md and differences.md)
+    c) git tag vX.Y.Z
+    d) git push origin vX.Y.Z
+4. deploy to bintray:
+    a) gr bintrayUpload
+    b) Log in to bintray, check and publish new jars
+5. create release on github
+
+Prepare next dev cycle
+-----------------------
+1. change atrium_version in build.gradle to X.Y.Z-SNAPSHOT
+2. point to master
+   a) search for `tag=vX.Y.Z` and replace it with `branch=master`
+   b) search for `tree/vX.Y.Z` and replace it with `tree/master`
+   c) search for `X.Y.Z/doc` and replace with `latest#/doc`
+4. update README
+   a) place the warning about taking a sneak peek back into README
+   b) update version in the warning to X.Y.Z and update the link as well
+3. commit & push changes
+
+*/
