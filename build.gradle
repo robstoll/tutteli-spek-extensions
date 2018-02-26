@@ -1,5 +1,5 @@
 buildscript {
-    project.version ='0.1.0'
+    project.version ='0.2.0-SNAPSHOT'
     ext {
         kotlin_version = '1.2.21'
 
@@ -17,7 +17,7 @@ buildscript {
 
         //dokka
         dokka_version = '0.9.14'
-        dokka_sourceMapping = 'tree/v0.1.0'
+        dokka_sourceMapping = 'tree/master'
 
         projectPrefixed = { String name -> project(":${rootProject.name}-$name") }
         srcKotlin = 'src/main/kotlin'
@@ -120,14 +120,10 @@ Release & deploy a commit
 
 Prepare next dev cycle
 -----------------------
-1. change atrium_version in build.gradle to X.Y.Z-SNAPSHOT
+1. change version in build.gradle to X.Y.Z-SNAPSHOT
 2. point to master
    a) search for `tag=vX.Y.Z` and replace it with `branch=master`
    b) search for `tree/vX.Y.Z` and replace it with `tree/master`
-   c) search for `X.Y.Z/doc` and replace with `latest#/doc`
-4. update README
-   a) place the warning about taking a sneak peek back into README
-   b) update version in the warning to X.Y.Z and update the link as well
 3. commit & push changes
 
 */
