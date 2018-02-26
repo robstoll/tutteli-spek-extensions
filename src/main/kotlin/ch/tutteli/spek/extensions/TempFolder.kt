@@ -1,5 +1,7 @@
 package ch.tutteli.spek.extensions
 
+import org.jetbrains.spek.api.lifecycle.ActionScope
+import org.jetbrains.spek.api.lifecycle.GroupScope
 import org.jetbrains.spek.api.lifecycle.LifecycleListener
 import org.jetbrains.spek.api.lifecycle.TestScope
 import java.io.File
@@ -10,7 +12,8 @@ import java.nio.file.Path
 import java.nio.file.SimpleFileVisitor
 import java.nio.file.attribute.BasicFileAttributes
 
-class TempFolder : LifecycleListener {
+class TempFolder private constructor(private val scope: Scope) : LifecycleListener {
+
     private var _tmpPath: Path? = null
 
     val tmpDir: File get() = checkState("access tmpDir", { it.toFile() })
@@ -18,7 +21,7 @@ class TempFolder : LifecycleListener {
 
     private fun <T> checkState(actDescription: String, act: (Path) -> T): T {
         check(_tmpPath != null) {
-            "You tried to $actDescription but you cannot use TempFolder outside of a TestScope."
+            "You tried to $actDescription but you cannot use TempFolder outside of a ${scope.name} scope."
         }
         return act(_tmpPath!!)
     }
@@ -26,22 +29,58 @@ class TempFolder : LifecycleListener {
     fun newFile(name: String): File = checkState("call newFile", { File(it.toFile(), name).apply { createNewFile() } })
     fun newFolder(name: String): File = checkState("call newFolder", { File(it.toFile(), name).apply { mkdir() } })
 
-    override fun beforeExecuteTest(test: TestScope) {
-        _tmpPath = Files.createTempDirectory("spek")
+    override fun beforeExecuteTest(test: TestScope) = setUp(Scope.TEST)
+    override fun beforeExecuteAction(action: ActionScope) = setUp(Scope.ACTION)
+    override fun beforeExecuteGroup(group: GroupScope) = setUp(Scope.GROUP)
+
+    override fun afterExecuteTest(test: TestScope) = tearDown(Scope.TEST)
+    override fun afterExecuteAction(action: ActionScope) = tearDown(Scope.ACTION)
+    override fun afterExecuteGroup(group: GroupScope) = tearDown(Scope.GROUP)
+
+
+    private fun setUp(expectedScope: Scope) {
+        if (scope == expectedScope) {
+            _tmpPath = Files.createTempDirectory("spek")
+        }
     }
 
-    override fun afterExecuteTest(test: TestScope) {
-        Files.walkFileTree(_tmpPath, object : SimpleFileVisitor<Path>() {
+    private fun tearDown(expectedScope: Scope) {
+        if (scope == expectedScope) {
+            Files.walkFileTree(_tmpPath, object : SimpleFileVisitor<Path>() {
 
-            override fun visitFile(file: Path, attrs: BasicFileAttributes) = deleteAndContinue(file)
+                override fun visitFile(file: Path, attrs: BasicFileAttributes) = deleteAndContinue(file)
 
-            override fun postVisitDirectory(dir: Path, exc: IOException?) = deleteAndContinue(dir)
+                override fun postVisitDirectory(dir: Path, exc: IOException?) = deleteAndContinue(dir)
 
-            private fun deleteAndContinue(path: Path): FileVisitResult {
-                Files.delete(path)
-                return FileVisitResult.CONTINUE
-            }
-        })
-        _tmpPath = null
+                private fun deleteAndContinue(path: Path): FileVisitResult {
+                    Files.delete(path)
+                    return FileVisitResult.CONTINUE
+                }
+            })
+            _tmpPath = null
+        }
+    }
+
+    companion object {
+        /**
+         * Sets up the [tmpDir] before each test and cleans it up after each test.
+         */
+        fun perTest() = TempFolder(Scope.TEST)
+
+        /**
+         * Sets up the [tmpDir] before each action and cleans it up after each action.
+         */
+        fun perAction() = TempFolder(Scope.ACTION)
+
+        /**
+         * Sets up the [tmpDir] before each group and cleans it up after each group.
+         */
+        fun perGroup() = TempFolder(Scope.GROUP)
+    }
+
+    private enum class Scope {
+        TEST,
+        ACTION,
+        GROUP
     }
 }
