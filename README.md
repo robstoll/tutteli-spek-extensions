@@ -1,6 +1,6 @@
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
-[![Build Status](https://travis-ci.org/robstoll/tutteli-spek-extensions.svg?branch=master)](https://travis-ci.org/robstoll/tutteli-spek-extensions/branches)
-[![Coverage](https://codecov.io/github/robstoll/tutteli-spek-extensions/coverage.svg?branch=master)](https://codecov.io/github/robstoll/tutteli-spek-extensions?branch=master)
+[![Build Status](https://travis-ci.org/robstoll/tutteli-spek-extensions.svg?tag=v0.1.0)](https://travis-ci.org/robstoll/tutteli-spek-extensions/branches)
+[![Coverage](https://codecov.io/github/robstoll/tutteli-spek-extensions/coverage.svg?tag=v0.1.0)](https://codecov.io/github/robstoll/tutteli-spek-extensions?tag=v0.1.0)
 
 
 # Tutteli spek extension
@@ -16,6 +16,7 @@ You have to register it in your Spek as follows:
 object MySpec: Spek({
     val tempFolder = TempFolder()
     registerListener(tempFolder)
+    
     it ("..."){
         val file = tempFolder.newFile("test.txt")
     }
