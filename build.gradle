@@ -88,4 +88,3 @@ ext {
 }
 
 apply from: "${rootProject.projectDir}/gradle/scripts/publish.gradle"
-apply from: 'gradle/scripts/gh-pages.gradle'
