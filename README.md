@@ -6,6 +6,22 @@
 # Tutteli spek extension
 A set of [Spek](http://spekframework.org/) extensions such as [TempFolder](#tempfolder).
 
+#Installation
+
+*gradle*
+```groovy
+repositories {
+    maven {
+        url  "https://dl.bintray.com/robstoll/tutteli-jars" 
+    }
+}
+
+dependencies {
+    testCompile 'ch.tutteli:tutteli-spek-extensions:0.1.0'
+}
+```
+
+
 ## TempFolder
 Provides, similar to TemporaryFolder in junit4, utility methods create temp files and folder and takes care of deleting them.
 
