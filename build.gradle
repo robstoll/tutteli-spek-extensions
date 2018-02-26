@@ -1,5 +1,5 @@
 buildscript {
-    project.version ='0.2.0'
+    project.version ='0.3.0-SNAPSHOT'
     ext {
         kotlin_version = '1.2.21'
 
@@ -17,7 +17,7 @@ buildscript {
 
         //dokka
         dokka_version = '0.9.14'
-        dokka_sourceMapping = 'tree/v0.2.0'
+        dokka_sourceMapping = 'tree/master'
 
         projectPrefixed = { String name -> project(":${rootProject.name}-$name") }
         srcKotlin = 'src/main/kotlin'
