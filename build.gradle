@@ -6,7 +6,7 @@ buildscript {
         //testing
         junit_platform_version = '1.1.0'
         spek_version = '1.1.5'
-        atrium_version = '0.6.0'
+        atrium_version = '0.7.0'
         mockito_kotlin_version = '1.5.0'
 
         //publish.gradle
@@ -58,7 +58,7 @@ dependencies {
         exclude group: 'org.junit.platform'
         exclude group: 'org.jetbrains.kotlin'
     }
-    testCompile("ch.tutteli:atrium-cc-en_UK-robstoll:$atrium_version") {
+    testCompile("ch.tutteli.atrium:atrium-cc-en_UK-robstoll:$atrium_version") {
         exclude group: 'org.jetbrains.kotlin'
     }
     testCompile("com.nhaarman:mockito-kotlin:$mockito_kotlin_version") {
