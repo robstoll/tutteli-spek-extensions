@@ -1,7 +1,7 @@
 [![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/tutteli-spek-extensions/images/download.svg) ](https://bintray.com/robstoll/tutteli-jars/tutteli-spek-extensions/_latestVersion)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
-[![Build Status](https://travis-ci.org/robstoll/tutteli-spek-extensions.svg?tag=v0.3.0)](https://travis-ci.org/robstoll/tutteli-spek-extensions/branches)
-[![Coverage](https://codecov.io/github/robstoll/tutteli-spek-extensions/coverage.svg?tag=v0.3.0)](https://codecov.io/github/robstoll/tutteli-spek-extensions?tag=v0.3.0)
+[![Build Status](https://travis-ci.org/robstoll/tutteli-spek-extensions.svg?branch=master)](https://travis-ci.org/robstoll/tutteli-spek-extensions/branches)
+[![Coverage](https://codecov.io/github/robstoll/tutteli-spek-extensions/coverage.svg?branch=master)](https://codecov.io/github/robstoll/tutteli-spek-extensions?branch=master)
 
 
 # Tutteli spek extension
