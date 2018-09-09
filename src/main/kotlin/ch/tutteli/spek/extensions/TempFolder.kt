@@ -4,7 +4,6 @@ import org.jetbrains.spek.api.lifecycle.ActionScope
 import org.jetbrains.spek.api.lifecycle.GroupScope
 import org.jetbrains.spek.api.lifecycle.LifecycleListener
 import org.jetbrains.spek.api.lifecycle.TestScope
-import java.io.File
 import java.io.IOException
 import java.nio.file.FileVisitResult
 import java.nio.file.Files
@@ -14,20 +13,19 @@ import java.nio.file.attribute.BasicFileAttributes
 
 class TempFolder private constructor(private val scope: Scope) : LifecycleListener {
 
-    private var _tmpPath: Path? = null
+    private var _tmpDir: Path? = null
 
-    val tmpDir: File get() = checkState("access tmpDir", { it.toFile() })
-    val tmpPath: Path get() = checkState("access tmpPath", { it })
+    val tmpDir: Path get() = checkState("access tmpDir") { it }
 
     private fun <T> checkState(actDescription: String, act: (Path) -> T): T {
-        check(_tmpPath != null) {
+        check(_tmpDir != null) {
             "You tried to $actDescription but you cannot use TempFolder outside of a ${scope.name} scope."
         }
-        return act(_tmpPath!!)
+        return act(_tmpDir!!)
     }
 
-    fun newFile(name: String): File = checkState("call newFile", { File(it.toFile(), name).apply { createNewFile() } })
-    fun newFolder(name: String): File = checkState("call newFolder", { File(it.toFile(), name).apply { mkdir() } })
+    fun newFile(name: String): Path = checkState("call newFile") { Files.createFile(it.resolve(name)) }
+    fun newFolder(name: String): Path = checkState("call newFolder") { Files.createDirectory(it.resolve(name)) }
 
     override fun beforeExecuteTest(test: TestScope) = setUp(Scope.TEST)
     override fun beforeExecuteAction(action: ActionScope) = setUp(Scope.ACTION)
@@ -40,13 +38,13 @@ class TempFolder private constructor(private val scope: Scope) : LifecycleListen
 
     private fun setUp(expectedScope: Scope) {
         if (scope == expectedScope) {
-            _tmpPath = Files.createTempDirectory("spek")
+            _tmpDir = Files.createTempDirectory("spek")
         }
     }
 
     private fun tearDown(expectedScope: Scope) {
         if (scope == expectedScope) {
-            Files.walkFileTree(_tmpPath, object : SimpleFileVisitor<Path>() {
+            Files.walkFileTree(_tmpDir, object : SimpleFileVisitor<Path>() {
 
                 override fun visitFile(file: Path, attrs: BasicFileAttributes) = deleteAndContinue(file)
 
@@ -57,7 +55,7 @@ class TempFolder private constructor(private val scope: Scope) : LifecycleListen
                     return FileVisitResult.CONTINUE
                 }
             })
-            _tmpPath = null
+            _tmpDir = null
         }
     }
 

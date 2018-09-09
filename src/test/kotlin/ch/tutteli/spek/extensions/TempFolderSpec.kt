@@ -9,7 +9,7 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.lifecycle.ActionScope
 import org.jetbrains.spek.api.lifecycle.GroupScope
 import org.jetbrains.spek.api.lifecycle.TestScope
-import java.io.File
+import java.nio.file.Paths
 
 object TempFolderSpec : Spek({
 
@@ -31,34 +31,34 @@ object TempFolderSpec : Spek({
             val tmpDir = testee.tmpDir
 
             it("created the tmpDir") {
-                assert(tmpDir).returnValueOf(tmpDir::exists).toBe(true)
+                assert(tmpDir).exists()
             }
 
-            var tmpFile = File("needs to be initialized")
+            var tmpFile = Paths.get("needs to be initialized")
             test("calling newFile creates a file with the corresponding name") {
                 val fileName = "test.txt"
                 tmpFile = testee.newFile(fileName)
                 assert(tmpFile) {
-                    returnValueOf(subject::getName).toBe(fileName)
-                    returnValueOf(subject::exists).toBe(true)
+                    name.toBe(fileName)
+                    exists()
                 }
             }
 
-            var tmpFolder = File("needs to be initialized")
+            var tmpFolder = Paths.get("needs to be initialized")
             test("calling newFolder creates a folder with the corresponding name") {
                 val folderName = "testDir"
                 tmpFolder = testee.newFolder(folderName)
                 assert(tmpFolder) {
-                    returnValueOf(subject::getName).toBe(folderName)
-                    returnValueOf(subject::exists).toBe(true)
+                    name.toBe(folderName)
+                    exists()
                 }
             }
 
             test("calling afterExecuteTest, deletes tmpDir and the created file and folder") {
                 testee.afterExecuteTest(testScope)
-                assert(tmpDir).returnValueOf(tmpFile::exists).toBe(false)
-                assert(tmpFile).returnValueOf(tmpFile::exists).toBe(false)
-                assert(tmpFolder).returnValueOf(tmpFile::exists).toBe(false)
+                assert(tmpDir).existsNot()
+                assert(tmpFile).existsNot()
+                assert(tmpFolder).existsNot()
             }
         }
     }
@@ -81,7 +81,7 @@ object TempFolderSpec : Spek({
                 setup(testee)
                 mapOf<Pair<String, String>, () -> Any>(
                     "accessing" to "tmpDir" to { testee.tmpDir },
-                    "accessing" to "tmpPath" to { testee.tmpPath },
+                    "accessing" to "tmpDir" to { testee.tmpDir },
                     "calling" to "newFile" to { testee.newFile("test") },
                     "calling" to "newFolder" to { testee.newFolder("test") }
                 ).forEach { (pair, act) ->
