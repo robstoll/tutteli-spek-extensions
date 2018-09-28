@@ -30,6 +30,7 @@ buildscript {
         classpath "ch.tutteli:tutteli-gradle-junitjacoco:$tutteli_gradle_version"
         classpath "ch.tutteli:tutteli-gradle-kotlin-utils:$tutteli_gradle_version"
         classpath "ch.tutteli:tutteli-gradle-publish:$tutteli_gradle_version"
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2"
     }
 }
 
@@ -47,6 +48,7 @@ apply plugin: 'ch.tutteli.kotlin.utils'
 kotlinutils.kotlinVersion = kotlin_version
 
 apply plugin: 'ch.tutteli.junitjacoco'
+junitjacoco.enableJunitReport = true
 
 apply plugin: 'ch.tutteli.publish'
 publish {
