@@ -20,7 +20,7 @@ script:
   - sonar-scanner
     -X
     -Dsonar.projectKey=robstoll_tutteli-spek-extensions
-    -Dsonar.sources=src
+    -Dsonar.sources=src,build/classes,build/jacoco,build/reports
     -Dsonar.projectVersion=0.4.0-SNAPSHOT
     -Dsonar.jacoco.reportMissing.force.zero=true
     -Dsonar.jacoco.reportPaths=build/jacoco/junitPlatformTest.exec
