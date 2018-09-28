@@ -17,11 +17,15 @@ install: true
 
 script:
   - ./gr -i build
-  - sonar-scanner
-    -Dsonar.projectKey=robstoll_tutteli-spek-extensions
-    -Dsonar.sources=src
-    -Dsonar.projectVersion=0.4.0-SNAPSHOT
-    -Dsonar.jacoco.reportPaths=build/jacoco/junitPlatformTest.exec
+  - |
+    if [ $TRAVIS_JDK_VERSION == oraclejdk8 ]; then
+        sonar-scanner \
+            -Dsonar.projectKey=robstoll_tutteli-spek-extensions \
+            -Dsonar.sources=src \
+            -Dsonar.projectVersion=0.4.0-SNAPSHOT \
+            -Dsonar.jacoco.reportMissing.force.zero=true \
+            -Dsonar.jacoco.reportPaths=build/jacoco/junitPlatformTest.exec
+    fi
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
