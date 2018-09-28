@@ -1,42 +1,36 @@
 buildscript {
+    project.group = 'ch.tutteli.spek'
     project.version ='0.4.0-SNAPSHOT'
+    project.description = 'A set of Spek extensions'
+
     ext {
+        // project setup
+        tutteli_gradle_version = '0.13.6'
+        github_user = 'robstoll'
+
+        // main
         kotlin_version = '1.2.71'
 
-        //testing
-        junit_platform_version = '1.1.0'
+        // test
+        junit_platform_version = '1.2.0'
         spek_version = '1.1.5'
         atrium_version = '0.7.0'
         mockito_kotlin_version = '1.5.0'
-
-        //publish.gradle
-        bintray_version = '1.7.3'
-        publish_pkg_name = project.name
-        github_url = "https://github.com/robstoll/${project.name}"
-        publish_vcsUrl = "${github_url}.git"
-
-        //dokka
-        dokka_version = '0.9.14'
-        dokka_sourceMapping = 'tree/master'
-
-        projectPrefixed = { String name -> project(":${rootProject.name}-$name") }
-        srcKotlin = 'src/main/kotlin'
-        srcOwnModule = { String name -> "${rootProject.projectDir}/${rootProject.name}-$name/${ext.srcKotlin}" }
     }
 
     repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
         mavenCentral()
         jcenter()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
         classpath "org.junit.platform:junit-platform-gradle-plugin:$junit_platform_version"
+        classpath "ch.tutteli:tutteli-gradle-dokka:$tutteli_gradle_version"
+        classpath "ch.tutteli:tutteli-gradle-junitjacoco:$tutteli_gradle_version"
+        classpath "ch.tutteli:tutteli-gradle-kotlin-utils:$tutteli_gradle_version"
+        classpath "ch.tutteli:tutteli-gradle-publish:$tutteli_gradle_version"
     }
-}
-
-plugins {
-    id 'ch.tutteli.junitjacoco' version '0.9.0'
 }
 
 repositories {
@@ -45,25 +39,32 @@ repositories {
 }
 
 apply plugin: 'kotlin'
-apply plugin: 'org.jetbrains.dokka'
+
+apply plugin: 'ch.tutteli.dokka'
+tutteliDokka.githubUser = github_user
+
+apply plugin: 'ch.tutteli.kotlin.utils'
+kotlinutils.kotlinVersion = kotlin_version
+
+apply plugin: 'ch.tutteli.junitjacoco'
+
+apply plugin: 'ch.tutteli.publish'
+publish {
+    githubUser = github_user
+    bintrayRepo = 'tutteli-jars'
+}
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    compile("org.jetbrains.spek:spek-api:$spek_version") {
-        exclude group: 'org.jetbrains.kotlin'
-    }
+    compile "org.jetbrains.spek:spek-api:$spek_version", withoutKotlin
 
     testRuntime("org.jetbrains.spek:spek-junit-platform-engine:$spek_version") {
         exclude group: 'org.junit.platform'
         exclude group: 'org.jetbrains.kotlin'
     }
-    testCompile("ch.tutteli.atrium:atrium-cc-en_GB-robstoll:$atrium_version") {
-        exclude group: 'org.jetbrains.kotlin'
-    }
-    testCompile("com.nhaarman:mockito-kotlin:$mockito_kotlin_version") {
-        exclude group: 'org.jetbrains.kotlin'
-    }
+    testCompile "ch.tutteli.atrium:atrium-cc-en_GB-robstoll:$atrium_version", withoutKotlin
+    testCompile "com.nhaarman:mockito-kotlin:$mockito_kotlin_version", withoutKotlin
 }
 
 junitPlatform {
@@ -73,33 +74,6 @@ junitPlatform {
         }
     }
 }
-
-dokka {
-    outputFormat = 'html'
-    outputDirectory = "$buildDir/kdoc"
-    linkMapping {
-        dir = "$srcKotlin"
-        url = "$github_url/${dokka_sourceMapping}/${project.name}/$srcKotlin"
-        suffix = '#L'
-    }
-}
-
-task sourceJar(type: Jar) {
-    from project.sourceSets.main.allSource
-    classifier = 'sources'
-}
-
-task javadocJar(type: Jar, dependsOn: dokka) {
-    from dokka.outputDirectory
-    classifier = 'javadoc'
-}
-ext {
-    publish_artifactId = name
-    publish_description = "A set of Spek extensions"
-    publish_artifacts = [sourceJar, javadocJar]
-}
-
-apply from: "${rootProject.projectDir}/gradle/scripts/publish.gradle"
 
 /*
 
