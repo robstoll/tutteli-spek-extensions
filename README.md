@@ -1,8 +1,9 @@
 [![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/tutteli-spek-extensions/images/download.svg) ](https://bintray.com/robstoll/tutteli-jars/tutteli-spek-extensions/_latestVersion)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
-[![Build Status](https://travis-ci.org/robstoll/tutteli-spek-extensions.svg?branch=master)](https://travis-ci.org/robstoll/tutteli-spek-extensions/branches)
+[![Build Status Travis](https://travis-ci.org/robstoll/tutteli-spek-extensions.svg?branch=master)](https://travis-ci.org/robstoll/tutteli-spek-extensions/branches)
+[![Build status AppVeyor](https://ci.appveyor.com/api/projects/status/l1eg7tb0f92xoqe3/branch/master?svg=true)](https://ci.appveyor.com/project/robstoll/tutteli-spek-extensions/branch/master)
 [![Coverage](https://codecov.io/github/robstoll/tutteli-spek-extensions/coverage.svg?branch=master)](https://codecov.io/github/robstoll/tutteli-spek-extensions?branch=master)
-
+[![SonarCloud Status](https://sonarcloud.io/api/project_badges/measure?project=robstoll_tutteli-spek-extensions&metric=alert_status)](https://sonarcloud.io/dashboard?id=robstoll_tutteli-spek-extensions)
 
 # Tutteli spek extension
 A set of [Spek](http://spekframework.org/) extensions such as [TempFolder](#tempfolder).
