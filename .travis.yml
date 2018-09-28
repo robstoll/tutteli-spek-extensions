@@ -18,16 +18,17 @@ install: true
 script:
   - ./gr -i build
   - sonar-scanner
-    -v
     -Dsonar.projectKey=robstoll_tutteli-spek-extensions
     -Dsonar.sources=src
     -Dsonar.projectVersion=0.4.0-SNAPSHOT
     -Dsonar.jacoco.reportMissing.force.zero=true
-    -Dsonar.junit.reportPaths=build/test-results/junit-platform
-    -Dsonar.jacoco.reportPaths=build/jacoco/junitPlatformTest.exec
+    -Dsonar.junit.reportPaths=$TRAVIS_BUILD_DIR/build/test-results/junit-platform
+    -Dsonar.jacoco.reportPaths=$TRAVIS_BUILD_DIR/build/jacoco/junitPlatformTest.exec
     -Dsonar.verbose=true
-    -Dsonar.scanner.dumpToFile=sonar.log
+    -Dsonar.verbose=true
   - cat sonar.log
+  - head -c 50 build/jacoco/junitPlatformTest.exec
+  - head -c 50 build/test-results/junit-platform/TEST-spek.xml
 
 
 after_success:
