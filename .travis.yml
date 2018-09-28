@@ -17,7 +17,11 @@ install: true
 
 script:
   - ./gr -i build
-  - sonar-scanner -Dsonar.projectKey=robstoll_tutteli-spek-extensions -Dsonar.sources=src -Dsonar.projectVersion=0.4.0-SNAPSHOT
+  - sonar-scanner
+    -Dsonar.projectKey=robstoll_tutteli-spek-extensions
+    -Dsonar.sources=src
+    -Dsonar.projectVersion=0.4.0-SNAPSHOT
+    -Dsonar.jacoco.reportPaths=build/jacoco/junitPlatformTest.exec
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
