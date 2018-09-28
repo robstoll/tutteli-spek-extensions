@@ -4,12 +4,20 @@ jdk:
   - oraclejdk8
   - oraclejdk9
 
+addons:
+    sonarcloud:
+        organization: "robstoll-github"
+        token:
+            secure: $SONAR_TOKEN
+
+
 before_install:
  - chmod +x gr
 install: true
 
 script:
   - ./gr -i build
+  - sonar-scanner -Dsonar.projectKey=robstoll_tutteli-spek-extensions -Dsonar.sources=src -Dsonar.projectVersion=0.4.0-SNAPSHOT
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
@@ -22,3 +30,4 @@ cache:
   directories:
     - $HOME/.gradle/wrapper/
     - $HOME/.gradle/caches/
+    - $HOME/.sonar/cache

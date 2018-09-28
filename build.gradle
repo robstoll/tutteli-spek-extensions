@@ -79,7 +79,7 @@ junitPlatform {
 
 Release & deploy a commit
 --------------------------------
-1. change version in build.gradle to X.Y.Z
+1. change search for X.Y.Z-SNAPSHOT and change to X.Y.Z
 2. update master:
     a) point to the tag
         1) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage in README.md)
