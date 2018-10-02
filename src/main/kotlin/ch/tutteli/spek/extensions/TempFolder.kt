@@ -15,6 +15,7 @@ class TempFolder private constructor(private val scope: Scope) : LifecycleListen
 
     private var _tmpDir: Path? = null
 
+    //TODO generate a sonar issue
     val tmpDir: Path get() = checkState("access tmpDir") { it }
 
     private fun <T> checkState(actDescription: String, act: (Path) -> T): T {
