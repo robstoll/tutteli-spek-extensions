@@ -2,7 +2,7 @@ language: java
 jdk:
   # junit5 requires java 8
   - oraclejdk8
-  #- oraclejdk9
+  - oraclejdk9
 
 addons:
     sonarcloud:
@@ -17,17 +17,15 @@ install: true
 
 script:
   - ./gr -i build
-  - sonar-scanner
-    -X
-    -Dsonar.projectKey=robstoll_tutteli-spek-extensions
-    -Dsonar.sources=src,build/classes,build/jacoco,build/reports
-    -Dsonar.projectVersion=0.4.0-SNAPSHOT
-    -Dsonar.jacoco.reportMissing.force.zero=true
-    -Dsonar.jacoco.reportPaths=build/jacoco/junitPlatformTest.exec
-    -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/report.xml
-    -Dsonar.verbose=true
-  - head -c 200 build/jacoco/junitPlatformTest.exec
-  - head -c 200 build/reports/jacoco/report.xml
+  - |
+      if [ $TRAVIS_JDK_VERSION == oraclejdk8 ]; then
+          sonar-scanner \
+              -Dsonar.projectKey=robstoll_tutteli-spek-extensions \
+              -Dsonar.sources=src \
+              -Dsonar.projectVersion=0.4.0-SNAPSHOT \
+              -Dsonar.jacoco.reportMissing.force.zero=true \
+              -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/report.xml
+      fi
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
