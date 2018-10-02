@@ -23,7 +23,6 @@ script:
               -Dsonar.projectKey=robstoll_tutteli-spek-extensions \
               -Dsonar.sources=src \
               -Dsonar.projectVersion=0.4.0-SNAPSHOT \
-              -Dsonar.jacoco.reportMissing.force.zero=true \
               -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/report.xml
       fi
 
