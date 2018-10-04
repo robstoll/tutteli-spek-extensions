@@ -50,8 +50,9 @@ apply plugin: 'ch.tutteli.junitjacoco'
 
 apply plugin: 'ch.tutteli.publish'
 publish {
-    githubUser = github_user
-    bintrayRepo = 'tutteli-jars'
+    githubUser.set(github_user)
+    bintrayRepo.set('tutteli-jars')
+    manifestVendor.set('tutteli.ch')
 }
 
 dependencies {
