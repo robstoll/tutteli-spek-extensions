@@ -5,7 +5,7 @@ buildscript {
 
     ext {
         // project setup
-        tutteli_gradle_version = '0.14.1'
+        tutteli_gradle_version = '0.15.1'
         github_user = 'robstoll'
 
         // main
@@ -58,16 +58,14 @@ publish {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    compile "org.jetbrains.spek:spek-api:$spek_version", withoutKotlin
+    compile "org.jetbrains.spek:spek-api:$spek_version", excludeKotlin
 
-    testRuntime("org.jetbrains.spek:spek-junit-platform-engine:$spek_version") {
-        exclude group: 'org.jetbrains.kotlin'
+    testRuntime "org.jetbrains.spek:spek-junit-platform-engine:$spek_version", excludeKotlin
+    testCompile "ch.tutteli.atrium:atrium-cc-en_GB-robstoll:$atrium_version", excluding {
+        atriumVerbs()
+        kotlin()
     }
-    testCompile("ch.tutteli.atrium:atrium-cc-en_GB-robstoll:$atrium_version") {
-        exclude module: 'atrium-verbs'
-        exclude group: 'org.jetbrains.kotlin'
-    }
-    testCompile "com.nhaarman:mockito-kotlin:$mockito_kotlin_version", withoutKotlin
+    testCompile "com.nhaarman:mockito-kotlin:$mockito_kotlin_version", excludeKotlin
 }
 
 junitPlatform {
