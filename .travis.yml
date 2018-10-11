@@ -21,8 +21,9 @@ script:
       if [ $TRAVIS_JDK_VERSION == oraclejdk8 ]; then
           sonar-scanner \
               -Dsonar.projectKey=robstoll_tutteli-spek-extensions \
-              -Dsonar.sources=src \
               -Dsonar.projectVersion=0.4.0-SNAPSHOT \
+              -Dsonar.sources=src/main/kotlin \
+              -Dsonar.tests=src/test/kotlin \
               -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/report.xml
       fi
 
