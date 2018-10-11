@@ -44,5 +44,7 @@ object MySpec: Spek({
 There are a few other utility methods defined on `TempFolder`, e.g. `newFolder`.
 Please open an issue if you want more or create a pull request.
 
+In case you want to operate on `Path` we recommend using [Niok](https://github.com/robstoll/niok).
+
 # License
-tutteli-spek-extensions is published under [Apache 2.0](http://opensource.org/licenses/Apache2.0).
+tutteli-spek-extensions is published under [Apache 2.0](https://opensource.org/licenses/Apache2.0).
