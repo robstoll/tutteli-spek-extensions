@@ -18,7 +18,6 @@ object TempFolderSpec : Spek({
     }
 
     describe("beforeExecuteTest/afterExecuteTest") {
-
         context("calling beforeExecuteTest") {
             val testee = TempFolder.perTest()
             testee.beforeExecuteTest(testScope)
@@ -71,7 +70,6 @@ object TempFolderSpec : Spek({
             context("calling $calling") {
                 setup(testee)
                 mapOf<Pair<String, String>, () -> Any>(
-                    "accessing" to "tmpDir" to { testee.tmpDir },
                     "accessing" to "tmpDir" to { testee.tmpDir },
                     "calling" to "newFile" to { testee.newFile("test") },
                     "calling" to "newFolder" to { testee.newFolder("test") }

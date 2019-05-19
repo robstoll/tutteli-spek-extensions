@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    testCompile 'ch.tutteli:tutteli-spek-extensions:0.3.0'
+    testImplementation 'ch.tutteli:tutteli-spek-extensions:0.4.0'
 }
 ```
 
@@ -32,11 +32,13 @@ Provides, similar to TemporaryFolder in junit4, utility methods create temp file
 You have to register it in your Spek as follows:
 ```kotlin
 object MySpec: Spek({
-    val tempFolder = TempFolder.perTest() //or perAction() or perGroup()
+    val tempFolder = TempFolder.perTest() //or perGroup()
     registerListener(tempFolder)
     
-    it ("..."){
-        val file = tempFolder.newFile("test.txt")
+    describe("...") {
+        it ("...") {
+            val file = tempFolder.newFile("test.txt")
+        }
     }
 })
 ```
@@ -47,4 +49,4 @@ Please open an issue if you want more or create a pull request.
 In case you want to operate on `Path` we recommend using [Niok](https://github.com/robstoll/niok).
 
 # License
-tutteli-spek-extensions is published under [Apache 2.0](https://opensource.org/licenses/Apache2.0).
+tutteli-spek-extensions is licensed under [Apache 2.0](https://opensource.org/licenses/Apache2.0).

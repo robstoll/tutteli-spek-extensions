@@ -1,6 +1,6 @@
 buildscript {
     project.group = 'ch.tutteli.spek'
-    project.version ='0.4.0-SNAPSHOT'
+    project.version ='0.4.0'
     project.description = 'A set of Spek extensions'
 
     ext {
