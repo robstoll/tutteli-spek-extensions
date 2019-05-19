@@ -1,8 +1,7 @@
 package ch.tutteli.spek.extensions
 
 import ch.tutteli.atrium.api.cc.en_GB.*
-import ch.tutteli.atrium.assert
-import ch.tutteli.atrium.expect
+import ch.tutteli.atrium.verbs.expect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
@@ -31,14 +30,14 @@ object TempFolderSpec : Spek({
             val tmpDir = testee.tmpDir
 
             it("created the tmpDir") {
-                assert(tmpDir).exists()
+                expect(tmpDir).exists()
             }
 
             var tmpFile = Paths.get("needs to be initialized")
             test("calling newFile creates a file with the corresponding name") {
                 val fileName = "test.txt"
                 tmpFile = testee.newFile(fileName)
-                assert(tmpFile) {
+                expect(tmpFile) {
                     name.toBe(fileName)
                     exists()
                 }
@@ -48,7 +47,7 @@ object TempFolderSpec : Spek({
             test("calling newFolder creates a folder with the corresponding name") {
                 val folderName = "testDir"
                 tmpFolder = testee.newFolder(folderName)
-                assert(tmpFolder) {
+                expect(tmpFolder) {
                     name.toBe(folderName)
                     exists()
                 }
@@ -56,9 +55,9 @@ object TempFolderSpec : Spek({
 
             test("calling afterExecuteTest, deletes tmpDir and the created file and folder") {
                 testee.afterExecuteTest(testScope)
-                assert(tmpDir).existsNot()
-                assert(tmpFile).existsNot()
-                assert(tmpFolder).existsNot()
+                expect(tmpDir).existsNot()
+                expect(tmpFile).existsNot()
+                expect(tmpFolder).existsNot()
             }
         }
     }

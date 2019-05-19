@@ -69,7 +69,6 @@ dependencies {
 
     testRuntime "org.jetbrains.spek:spek-junit-platform-engine:$spek_version", excludeKotlin
     testCompile "ch.tutteli.atrium:atrium-cc-en_GB-robstoll:$atrium_version", excluding {
-        atriumVerbs()
         kotlin()
     }
     testCompile "com.nhaarman:mockito-kotlin:$mockito_kotlin_version", excludeKotlin
