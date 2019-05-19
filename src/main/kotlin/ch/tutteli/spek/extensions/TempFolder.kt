@@ -1,9 +1,8 @@
 package ch.tutteli.spek.extensions
 
-import org.jetbrains.spek.api.lifecycle.ActionScope
-import org.jetbrains.spek.api.lifecycle.GroupScope
-import org.jetbrains.spek.api.lifecycle.LifecycleListener
-import org.jetbrains.spek.api.lifecycle.TestScope
+import org.spekframework.spek2.lifecycle.GroupScope
+import org.spekframework.spek2.lifecycle.LifecycleListener
+import org.spekframework.spek2.lifecycle.TestScope
 import java.io.IOException
 import java.nio.file.FileVisitResult
 import java.nio.file.Files
@@ -28,11 +27,9 @@ class TempFolder private constructor(private val scope: Scope) : LifecycleListen
     fun newFolder(name: String): Path = checkState("call newFolder") { Files.createDirectory(it.resolve(name)) }
 
     override fun beforeExecuteTest(test: TestScope) = setUp(Scope.TEST)
-    override fun beforeExecuteAction(action: ActionScope) = setUp(Scope.ACTION)
     override fun beforeExecuteGroup(group: GroupScope) = setUp(Scope.GROUP)
 
     override fun afterExecuteTest(test: TestScope) = tearDown(Scope.TEST)
-    override fun afterExecuteAction(action: ActionScope) = tearDown(Scope.ACTION)
     override fun afterExecuteGroup(group: GroupScope) = tearDown(Scope.GROUP)
 
 
@@ -66,11 +63,6 @@ class TempFolder private constructor(private val scope: Scope) : LifecycleListen
         fun perTest() = TempFolder(Scope.TEST)
 
         /**
-         * Sets up the [tmpDir] before each action and cleans it up after each action.
-         */
-        fun perAction() = TempFolder(Scope.ACTION)
-
-        /**
          * Sets up the [tmpDir] before each group and cleans it up after each group.
          */
         fun perGroup() = TempFolder(Scope.GROUP)
@@ -78,7 +70,6 @@ class TempFolder private constructor(private val scope: Scope) : LifecycleListen
 
     private enum class Scope {
         TEST,
-        ACTION,
         GROUP
     }
 }

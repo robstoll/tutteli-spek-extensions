@@ -2,12 +2,10 @@ package ch.tutteli.spek.extensions
 
 import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.verbs.expect
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.lifecycle.ActionScope
-import org.jetbrains.spek.api.lifecycle.GroupScope
-import org.jetbrains.spek.api.lifecycle.TestScope
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.lifecycle.GroupScope
+import org.spekframework.spek2.lifecycle.TestScope
+import org.spekframework.spek2.style.specification.describe
 import java.nio.file.Paths
 
 object TempFolderSpec : Spek({
@@ -15,16 +13,13 @@ object TempFolderSpec : Spek({
     val testScope: TestScope = object : TestScope {
         override val parent: GroupScope get() = throw NotImplementedError()
     }
-    val actionScope: ActionScope = object : ActionScope {
-        override val parent: ActionScope get() = throw NotImplementedError()
-    }
     val groupScope: GroupScope = object : GroupScope {
         override val parent: GroupScope get() = throw NotImplementedError()
     }
 
     describe("beforeExecuteTest/afterExecuteTest") {
 
-        action("calling beforeExecuteTest") {
+        context("calling beforeExecuteTest") {
             val testee = TempFolder.perTest()
             testee.beforeExecuteTest(testScope)
             val tmpDir = testee.tmpDir
@@ -34,7 +29,7 @@ object TempFolderSpec : Spek({
             }
 
             var tmpFile = Paths.get("needs to be initialized")
-            test("calling newFile creates a file with the corresponding name") {
+            it("calling newFile creates a file with the corresponding name") {
                 val fileName = "test.txt"
                 tmpFile = testee.newFile(fileName)
                 expect(tmpFile) {
@@ -44,7 +39,7 @@ object TempFolderSpec : Spek({
             }
 
             var tmpFolder = Paths.get("needs to be initialized")
-            test("calling newFolder creates a folder with the corresponding name") {
+            it("calling newFolder creates a folder with the corresponding name") {
                 val folderName = "testDir"
                 tmpFolder = testee.newFolder(folderName)
                 expect(tmpFolder) {
@@ -53,7 +48,7 @@ object TempFolderSpec : Spek({
                 }
             }
 
-            test("calling afterExecuteTest, deletes tmpDir and the created file and folder") {
+            it("calling afterExecuteTest, deletes tmpDir and the created file and folder") {
                 testee.afterExecuteTest(testScope)
                 expect(tmpDir).existsNot()
                 expect(tmpFile).existsNot()
@@ -63,20 +58,17 @@ object TempFolderSpec : Spek({
     }
 
 
-    val groupAndAction: (TempFolder) -> Unit =
-        { it.beforeExecuteGroup(groupScope); it.beforeExecuteAction(actionScope) }
     val group: (TempFolder) -> Unit = { it.beforeExecuteGroup(groupScope) }
 
     mapOf(
-        "test" to TempFolder.perTest() to ("beforeExecuteGroup and beforeExecuteAction" to groupAndAction),
-        "action" to TempFolder.perAction() to ("beforeExecuteGroup" to group),
+        "test" to TempFolder.perTest() to ("beforeExecuteGroup and beforeExecuteAction" to group),
         "group" to TempFolder.perGroup() to ("<no setup method called>" to { _ -> })
     ).forEach { (nameTestee, callingSetup) ->
         val (name, testee) = nameTestee
         val (calling, setup) = callingSetup
         describe("usage outside of $name scope") {
 
-            action("calling $calling") {
+            context("calling $calling") {
                 setup(testee)
                 mapOf<Pair<String, String>, () -> Any>(
                     "accessing" to "tmpDir" to { testee.tmpDir },
@@ -88,7 +80,7 @@ object TempFolderSpec : Spek({
                     it("throws an IllegalStateException when $verb `$identifier` where the message contains $identifier") {
                         expect {
                             act()
-                        }.toThrow<IllegalStateException> { message { contains(identifier) } }
+                        }.toThrow<IllegalStateException> { messageContains(identifier) }
                     }
                 }
             }
