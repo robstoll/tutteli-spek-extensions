@@ -88,7 +88,7 @@ Release & deploy a commit
 2. search for current version and replace with new
 3. update master:
     a) point to the tag
-        1) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage in README.md)
+        1) update badge versions
         2) search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
     b) commit (modified build.gradle, README.md)
     c) git tag vX.Y.Z
