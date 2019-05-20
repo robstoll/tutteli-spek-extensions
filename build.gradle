@@ -5,7 +5,7 @@ buildscript {
 
     ext {
         // project setup
-        tutteli_gradle_version = '0.25.0'
+        tutteli_gradle_version = '0.26.1'
 
         // main
         kotlin_version = '1.3.31'
@@ -37,9 +37,8 @@ buildscript {
 }
 
 repositories {
-    mavenCentral()
+    jcenter()
     maven { url "https://dl.bintray.com/spekframework/spek" }
-    maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
 }
 
 apply plugin: 'kotlin'
@@ -95,7 +94,7 @@ Release & deploy a commit
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z
 4. deploy to bintray:
-    a) gr bintrayUpload
+    a) ./gr clean publishToBintray
     b) Log in to bintray, check and publish new jars
 5. create release on github
 
