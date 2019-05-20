@@ -1,5 +1,6 @@
 package ch.tutteli.spek.extensions
 
+import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.core.evalOnce
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -37,11 +38,13 @@ fun Assert<Path>.existsNot(): Assert<Path> {
 /**
  * TODO replace with method from Atrium as soon as it is provided
  */
-val Assert<Path>.name
-    get() : Assert<String> {
-        val subjectProvider = { subject.fileName.toString() }.evalOnce()
-        return AssertImpl.feature.property(this, subjectProvider, subjectProvider, DescriptionPath.NAME)
-    }
+val Assert<Path>.name get() : Assert<String> {
+    val subjectProvider = { subject.fileName.toString() }.evalOnce()
+    return AssertImpl.feature.property(this, subjectProvider, subjectProvider, DescriptionPath.NAME)
+}
+val Assert<Path>.parent get(): Assert<Path>
+    = returnValueOf(Path::getParent)
+
 
 enum class DescriptionPath(override val value: String) : StringBasedTranslatable {
     EXISTS("exists"),

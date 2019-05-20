@@ -9,18 +9,19 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.SimpleFileVisitor
 import java.nio.file.attribute.BasicFileAttributes
+import java.util.*
 
 class TempFolder private constructor(private val scope: Scope) : LifecycleListener {
 
-    private var _tmpDir: Path? = null
+    private val tmpDirs = Stack<Path>()
 
     val tmpDir: Path get() = checkState("access tmpDir") { it }
 
     private fun <T> checkState(actDescription: String, act: (Path) -> T): T {
-        check(_tmpDir != null) {
+        check(tmpDirs.isNotEmpty()) {
             "You tried to $actDescription but you cannot use TempFolder outside of a ${scope.name} scope."
         }
-        return act(_tmpDir!!)
+        return act(tmpDirs.peek())
     }
 
     fun newFile(name: String): Path = checkState("call newFile") { Files.createFile(it.resolve(name)) }
@@ -35,13 +36,13 @@ class TempFolder private constructor(private val scope: Scope) : LifecycleListen
 
     private fun setUp(expectedScope: Scope) {
         if (scope == expectedScope) {
-            _tmpDir = Files.createTempDirectory("spek")
+            tmpDirs.push(Files.createTempDirectory("spek"))
         }
     }
 
     private fun tearDown(expectedScope: Scope) {
         if (scope == expectedScope) {
-            Files.walkFileTree(_tmpDir, object : SimpleFileVisitor<Path>() {
+            Files.walkFileTree(tmpDirs.pop(), object : SimpleFileVisitor<Path>() {
 
                 override fun visitFile(file: Path, attrs: BasicFileAttributes) = deleteAndContinue(file)
 
@@ -52,7 +53,6 @@ class TempFolder private constructor(private val scope: Scope) : LifecycleListen
                     return FileVisitResult.CONTINUE
                 }
             })
-            _tmpDir = null
         }
     }
 
