@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'ch.tutteli:tutteli-spek-extensions:0.4.0'
+    testImplementation 'ch.tutteli.spek:tutteli-spek-extensions:0.4.0'
 }
 ```
 
