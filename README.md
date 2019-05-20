@@ -1,7 +1,7 @@
 [![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/tutteli-spek-extensions/images/download.svg) ](https://bintray.com/robstoll/tutteli-jars/tutteli-spek-extensions/_latestVersion)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
-[![Build Status Travis](https://travis-ci.org/robstoll/tutteli-spek-extensions.svg?branch=v0.4.0)](https://travis-ci.org/robstoll/tutteli-spek-extensions/branches)
-[![Build status AppVeyor](https://ci.appveyor.com/api/projects/status/l1eg7tb0f92xoqe3/branch/v0.4.0?svg=true)](https://ci.appveyor.com/project/robstoll/tutteli-spek-extensions/branch/v0.4.0)
+[![Build Status Travis](https://travis-ci.org/robstoll/tutteli-spek-extensions.svg?branch=v0.4.1)](https://travis-ci.org/robstoll/tutteli-spek-extensions/branches)
+[![Build status AppVeyor](https://ci.appveyor.com/api/projects/status/l1eg7tb0f92xoqe3/branch/v0.4.1?svg=true)](https://ci.appveyor.com/project/robstoll/tutteli-spek-extensions/branch/v0.4.1)
 [![Coverage](https://codecov.io/github/robstoll/tutteli-spek-extensions/coverage.svg?branch=master)](https://codecov.io/github/robstoll/tutteli-spek-extensions?branch=master)
 [![SonarCloud Status](https://sonarcloud.io/api/project_badges/measure?project=robstoll_tutteli-spek-extensions&metric=alert_status)](https://sonarcloud.io/dashboard?id=robstoll_tutteli-spek-extensions)
 
