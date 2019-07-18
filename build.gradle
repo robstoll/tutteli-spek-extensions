@@ -16,7 +16,7 @@ buildscript {
         atrium_version = '0.8.0'
 
         // detekt/sonarcloud
-        detekt_version = '1.0.0.RC8'
+        detekt_version = '1.0.0.RC9.2'
     }
 
     repositories {
