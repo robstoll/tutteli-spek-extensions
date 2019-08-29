@@ -11,6 +11,9 @@ import java.nio.file.SimpleFileVisitor
 import java.nio.file.attribute.BasicFileAttributes
 import java.util.*
 
+/**
+ * A [LifecycleListener] which manages the creation of temporary files and folders.
+ */
 class TempFolder private constructor(private val scope: Scope) : LifecycleListener {
 
     private val tmpDirs = Stack<Path>()
@@ -24,7 +27,14 @@ class TempFolder private constructor(private val scope: Scope) : LifecycleListen
         return act(tmpDirs.peek())
     }
 
+    /**
+     * Creates a new file with the given [name] in the current [tmpDir].
+     */
     fun newFile(name: String): Path = checkState("call newFile") { Files.createFile(it.resolve(name)) }
+
+    /**
+     * Creates a new folder with the given [name] in the current [tmpDir].
+     */
     fun newFolder(name: String): Path = checkState("call newFolder") { Files.createDirectory(it.resolve(name)) }
 
     override fun beforeExecuteTest(test: TestScope) = setUp(Scope.TEST)

@@ -1,24 +1,16 @@
 autoCorrect: false
-failFast: true
 
 build:
-    maxIssues: 30
+    maxIssues: 3
     weights:
         complexity: 2
         style: 0.5
 
-test-pattern: # Configure exclusions for test sources
-    active: true
-    patterns: #Test file regexes
-    - '.*(/|\\)test(/|\\).*'
-    exclude-rule-sets:
-    - 'ignoreDefaultBehaviour'
-    exclude-rules:
-    - 'StringLiteralDuplication'
-    - 'SpreadOperator'
-    - 'FunctionMinLength'
-    - 'UndocumentedPublicClass'
-    - 'UndocumentedPublicFunction'
+comments:
+    UndocumentedPublicClass:
+        excludes: "**/src/test/**"
+    UndocumentedPublicFunction:
+        excludes: "**/src/test/**"
 
 complexity:
     ComplexInterface:
@@ -28,18 +20,27 @@ complexity:
         ignoreSimpleWhenEntries: true
     LongParameterList:
         threshold: 7
+    StringLiteralDuplication:
+        excludes: "**/src/test/**"
+
     TooManyFunctions:
         ignorePrivate: true
+
+naming:
+    FunctionMinLength:
+        excludes: "**/src/test/**"
+
+performance:
+    ArrayPrimitive:
+        excludes: "**/src/test/**"
 
 potential-bugs:
     UnsafeCast:
         active: false
+    LateinitUsage:
+        excludes: "**/src/test/**"
 
 style:
-    DataClassContainsFunctions:
-        active: false
-    MagicNumber:
-        active: false
     MandatoryBracesIfStatements:
         active: false
     MaxLineLength:
@@ -47,8 +48,6 @@ style:
     OptionalWhenBraces:
         active: false
     OptionalUnit:
-        active: false
-    SpacingBetweenPackageAndImports:
         active: false
     UnnecessaryParentheses:
         active: false
