@@ -37,6 +37,11 @@ class TempFolder private constructor(private val scope: Scope) : LifecycleListen
      */
     fun newFolder(name: String): Path = checkState("call newFolder") { Files.createDirectory(it.resolve(name)) }
 
+    /**
+     * Creates a new symbolic link with the given [name] in the current [tmpDir], targeting the given [target].
+     */
+    fun newSymbolicLink(name: String, target: Path): Path = checkState("call newSymbolicLink") { Files.createSymbolicLink(it.resolve(name), target) }
+
     override fun beforeExecuteTest(test: TestScope) = setUp(Scope.TEST)
     override fun beforeExecuteGroup(group: GroupScope) = setUp(Scope.GROUP)
 

@@ -10,6 +10,7 @@ import org.spekframework.spek2.lifecycle.CachingMode
 import org.spekframework.spek2.lifecycle.GroupScope
 import org.spekframework.spek2.lifecycle.TestScope
 import org.spekframework.spek2.style.specification.describe
+import java.nio.file.LinkOption.NOFOLLOW_LINKS
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.*
@@ -67,16 +68,29 @@ object TempFolderSpec : Spek({
                         }
                     }
 
-                    it("calling afterExecuteTest, deletes tmpDir and the created file and folder") {
+                    var tmpSymlink = Paths.get("needs to be initialized")
+                    it("calling newSymbolicLink creates a folder with the corresponding name") {
+                        val linkName = "testLink"
+                        tmpSymlink = testee.newSymbolicLink(linkName, tmpFolder)
+                        expect(tmpSymlink) {
+                            name.toBe(linkName)
+                            exists(NOFOLLOW_LINKS)
+                            parent.toBe(testee.tmpDir)
+                        }
+                    }
+
+                    it("calling afterExecuteTest, deletes tmpDir and the created file and folder any symlink") {
                         val tmpDir = testee.tmpDir
                         expect(tmpDir).exists()
                         expect(tmpFile).exists()
                         expect(tmpFolder).exists()
+                        expect(tmpSymlink).exists(NOFOLLOW_LINKS)
 
                         tearDown(testee)
                         expect(tmpDir).existsNot()
                         expect(tmpFile).existsNot()
                         expect(tmpFolder).existsNot()
+                        expect(tmpSymlink).existsNot(NOFOLLOW_LINKS)
                     }
                 }
             }
@@ -131,7 +145,7 @@ object TempFolderSpec : Spek({
 
                     expect {
                         testee.afterExecuteGroup(groupScope)
-                    }.toThrow<EmptyStackException>{}
+                    }.toThrow<EmptyStackException> {}
                 }
             }
         }
@@ -152,7 +166,8 @@ object TempFolderSpec : Spek({
                 mapOf<Pair<String, String>, () -> Any>(
                     "accessing" to "tmpDir" to { testee.tmpDir },
                     "calling" to "newFile" to { testee.newFile("test") },
-                    "calling" to "newFolder" to { testee.newFolder("test") }
+                    "calling" to "newFolder" to { testee.newFolder("test") },
+                    "calling" to "newSymbolicLink" to { testee.newSymbolicLink("test", Paths.get("test")) }
                 ).forEach { (pair, act) ->
                     val (verb, identifier) = pair
                     it("throws an IllegalStateException when $verb `$identifier` where the message contains $identifier") {
