@@ -1,0 +1,5 @@
+dependencies {
+    testImplementation "ch.tutteli.atrium:atrium-cc-en_GB-robstoll-android:$atrium_version", excludeKotlin
+}
+
+srcAndResourcesFromJvmProject(project)
