@@ -22,7 +22,7 @@ dependencies {
     testImplementation 'ch.tutteli.spek:tutteli-spek-extensions:0.5.0'
 }
 ```
-
+Use `tutteli-spek-extensions-android` in case you deal with android (does not contain a module-info.java which DEC cannot cope with).
 
 ## TempFolder
 Provides, similar to TemporaryFolder in junit4, utility methods create temp files and folder and takes care of deleting them.
