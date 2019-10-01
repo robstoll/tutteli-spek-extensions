@@ -24,6 +24,7 @@ script:
           sonar-scanner \
               -Dsonar.projectVersion=0.6.0 \
               -Dsonar.projectKey=robstoll_tutteli-spek-extensions \
+              -Dsonar.kotlin.detekt.reportPaths=build/reports/detekt/detekt.xml \
               -Dsonar.sources=tutteli-spek-extensions-jvm/src/main/kotlin \
               -Dsonar.tests=tutteli-spek-extensions-jvm/src/test/kotlin \
               -Dsonar.coverage.jacoco.xmlReportPaths=tutteli-spek-extensions-jvm/build/reports/jacoco/report.xml
