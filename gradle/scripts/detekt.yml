@@ -26,6 +26,10 @@ complexity:
     TooManyFunctions:
         ignorePrivate: true
 
+exceptions:
+    NotImplementedDeclaration:
+        excludes: "**/src/test/**"
+
 naming:
     FunctionMinLength:
         excludes: "**/src/test/**"
