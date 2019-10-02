@@ -51,7 +51,6 @@ apply plugin: 'ch.tutteli.kotlin.utils'
 kotlinutils.kotlinVersion = kotlin_version
 
 subprojects {
-    project.description = 'A set of Spek extensions'
 
     repositories {
         jcenter()

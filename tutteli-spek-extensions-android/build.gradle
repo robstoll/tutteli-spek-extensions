@@ -1,3 +1,5 @@
+project.description = 'A set of Spek extensions for the Android platform'
+
 dependencies {
     testImplementation "ch.tutteli.atrium:atrium-cc-en_GB-robstoll-android:$atrium_version", excludeKotlin
 }
