@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package ch.tutteli.spek.extensions
 
 import ch.tutteli.atrium.api.cc.en_GB.returnValueOf
