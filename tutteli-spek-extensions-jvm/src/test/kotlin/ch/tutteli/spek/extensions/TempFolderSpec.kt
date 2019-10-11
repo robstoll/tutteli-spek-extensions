@@ -7,6 +7,7 @@ import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.verbs.expect
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.lifecycle.CachingMode
+import org.spekframework.spek2.lifecycle.ExecutionResult
 import org.spekframework.spek2.lifecycle.GroupScope
 import org.spekframework.spek2.lifecycle.TestScope
 import org.spekframework.spek2.style.specification.describe
@@ -24,16 +25,17 @@ object TempFolderSpec : Spek({
         override val parent: GroupScope get() = throw NotImplementedError()
     }
 
+    val failingResult = ExecutionResult.Failure(IllegalArgumentException("whaat"))
     describe("beforeExecute.../afterExecute...") {
         listOf(
             Triple(
                 "Test",
                 { val t = TempFolder.perTest(); t.beforeExecuteTest(testScope); t },
-                { t: TempFolder -> t.afterExecuteTest(testScope) }),
+                { t: TempFolder -> t.afterExecuteTest(testScope, ExecutionResult.Success) }),
             Triple(
                 "Group",
                 { val t = TempFolder.perGroup(); t.beforeExecuteGroup(groupScope); t },
-                { t: TempFolder -> t.afterExecuteGroup(groupScope) })
+                { t: TempFolder -> t.afterExecuteGroup(groupScope, failingResult) })
         ).forEach { (description, setUp, tearDown) ->
             context("context $description") {
                 context("calling beforeExecute$description") {
@@ -126,7 +128,7 @@ object TempFolderSpec : Spek({
                 it("calling afterExecuteGroup, deletes second tmpDir but not first") {
                     expect(first).exists()
                     expect(second).exists()
-                    testee.afterExecuteGroup(groupScope)
+                    testee.afterExecuteGroup(groupScope,failingResult)
 
                     expect(first).exists()
                     expect(second).existsNot()
@@ -134,7 +136,7 @@ object TempFolderSpec : Spek({
                 it("calling afterExecuteGroup a second time, deletes also first tmpDir") {
                     expect(first).exists()
                     expect(second).existsNot()
-                    testee.afterExecuteGroup(groupScope)
+                    testee.afterExecuteGroup(groupScope, ExecutionResult.Success)
 
                     expect(first).existsNot()
                     expect(second).existsNot()
@@ -144,7 +146,7 @@ object TempFolderSpec : Spek({
                     expect(second).existsNot()
 
                     expect {
-                        testee.afterExecuteGroup(groupScope)
+                        testee.afterExecuteGroup(groupScope, failingResult)
                     }.toThrow<EmptyStackException> {}
                 }
             }

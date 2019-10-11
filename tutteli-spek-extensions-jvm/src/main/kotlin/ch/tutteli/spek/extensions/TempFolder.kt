@@ -1,5 +1,6 @@
 package ch.tutteli.spek.extensions
 
+import org.spekframework.spek2.lifecycle.ExecutionResult
 import org.spekframework.spek2.lifecycle.GroupScope
 import org.spekframework.spek2.lifecycle.LifecycleListener
 import org.spekframework.spek2.lifecycle.TestScope
@@ -45,8 +46,8 @@ class TempFolder private constructor(private val scope: Scope) : LifecycleListen
     override fun beforeExecuteTest(test: TestScope) = setUp(Scope.TEST)
     override fun beforeExecuteGroup(group: GroupScope) = setUp(Scope.GROUP)
 
-    override fun afterExecuteTest(test: TestScope) = tearDown(Scope.TEST)
-    override fun afterExecuteGroup(group: GroupScope) = tearDown(Scope.GROUP)
+    override fun afterExecuteTest(test: TestScope, result: ExecutionResult) = tearDown(Scope.TEST)
+    override fun afterExecuteGroup(group: GroupScope, result: ExecutionResult) = tearDown(Scope.GROUP)
 
 
     private fun setUp(expectedScope: Scope) {
