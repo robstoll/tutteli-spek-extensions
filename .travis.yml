@@ -22,7 +22,7 @@ script:
   - |
       if [ "$TRAVIS_TEST_RESULT" == 0 ] && [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
           sonar-scanner \
-              -Dsonar.projectVersion=0.7.0 \
+              -Dsonar.projectVersion=1.0.0 \
               -Dsonar.projectKey=robstoll_tutteli-spek-extensions \
               -Dsonar.kotlin.detekt.reportPaths=build/reports/detekt/detekt.xml \
               -Dsonar.sources=tutteli-spek-extensions-jvm/src/main/kotlin \
