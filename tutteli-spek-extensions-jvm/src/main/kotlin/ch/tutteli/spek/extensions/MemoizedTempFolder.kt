@@ -36,49 +36,33 @@ fun LifecycleAware.memoizedTempFolder(
  * This class is not thread-safe.
  */
 class MemoizedTempFolder internal constructor() {
-    private var notCleanedUp = true
 
     /**
      * The temporary folder.
      */
     val tmpDir: Path = Files.createTempDirectory("spek")
 
-
-    private fun <T> checkState(actDescription: String, act: (Path) -> T): T {
-        check(notCleanedUp) {
-            "You tried to $actDescription but you cannot use MemoizedTempFolder once it is destructed."
-        }
-        return act(tmpDir)
-    }
-
     /**
      * Creates a new file with the given [name] in the current [tmpDir].
      */
-    fun newFile(name: String): Path = checkState("call newFile") { Files.createFile(it.resolve(name)) }
+    fun newFile(name: String): Path = Files.createFile(resolve(name))
 
     /**
      * Creates a new folder with the given [name] in the current [tmpDir].
      */
-    fun newFolder(name: String): Path = checkState("call newFolder") { Files.createDirectory(it.resolve(name)) }
+    fun newFolder(name: String): Path = Files.createDirectory(resolve(name))
 
     /**
      * Creates a new symbolic link with the given [name] in the current [tmpDir], targeting the given [target].
      */
-    fun newSymbolicLink(name: String, target: Path): Path =
-        checkState("call newSymbolicLink") { Files.createSymbolicLink(it.resolve(name), target) }
+    fun newSymbolicLink(name: String, target: Path): Path = Files.createSymbolicLink(resolve(name), target)
 
     /**
      * Resolves the name in the current [tmpDir] and returns the resulting [Path].
      */
-    fun resolve(pathAsString: String): Path =
-        checkState("call resolve") { it.resolve(pathAsString) }
+    fun resolve(pathAsString: String): Path = tmpDir.resolve(pathAsString)
 
     internal fun destructor() {
-        deleteTmpDir()
-        notCleanedUp = false
-    }
-
-    private fun deleteTmpDir() {
         Files.walkFileTree(tmpDir, object : SimpleFileVisitor<Path>() {
 
             override fun visitFile(file: Path, attrs: BasicFileAttributes) = deleteAndContinue(file)
