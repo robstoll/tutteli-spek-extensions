@@ -1,6 +1,6 @@
 buildscript {
     project.group = 'ch.tutteli.spek'
-    project.version ='1.0.0'
+    project.version ='1.0.1'
 
     ext {
         // main
