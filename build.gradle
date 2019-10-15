@@ -9,6 +9,7 @@ buildscript {
         // test
         spek_version = '2.0.8'
         atrium_version = '0.8.0'
+        niok_version = '1.2.0'
 
         // detekt/sonarcloud
         detekt_version = '1.1.1'
@@ -54,7 +55,18 @@ subprojects {
 
     repositories {
         jcenter()
-        maven { url "https://dl.bintray.com/spekframework/spek" }
+        maven {
+            url 'https://dl.bintray.com/spekframework/spek'
+            content {
+                includeGroupByRegex 'org\\.spekframework(\\..*)?'
+            }
+        }
+        maven {
+            url "https://dl.bintray.com/robstoll/tutteli-jars"
+            content {
+                includeGroupByRegex 'ch\\.tutteli(\\..*)?'
+            }
+        }
     }
 
     apply plugin: 'kotlin'
