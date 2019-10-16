@@ -8,7 +8,7 @@
 # Tutteli spek extension
 A set of [Spek](http://spekframework.org/) extensions such as [TempFolder](#tempfolder).
 
-#Installation
+# Installation
 
 *gradle*
 ```groovy
@@ -27,12 +27,11 @@ dependencies {
 ```
 Use `tutteli-spek-extensions-android` in case you deal with android (does not contain a module-info.java which d8 cannot cope with).
 
-## TempFolder
-Provides, similar to TemporaryFolder in junit4, utility methods to create temp files and folders and takes care of deleting them.
+## Usage
+`memoizedTempFolder` provides -- similar to TemporaryFolder in junit4 -- utility methods to create temp files and folders and takes care of deleting them.
 
-**Usage**
+Specify a `memoizedTempFolder` within a group like scope near to the test you are going to use the tempFolder (default `CachingMode` is per `TEST`, so each test gets its own temporary directory)
 
-Specify a `memoizedTempFolder` within a group like scope or on top of your spec
 ```kotlin
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
