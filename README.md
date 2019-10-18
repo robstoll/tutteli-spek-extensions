@@ -39,7 +39,7 @@ import org.spekframework.spek2.style.specification.describe
 object MySpec: Spek({
     
     describe("...") {
-        val tempFolder = memoizedTempFolder()
+        val tempFolder by memoizedTempFolder()
 
         it ("...") {
             val file = tempFolder.newFile("test.txt")
@@ -58,7 +58,7 @@ import org.spekframework.spek2.lifecycle.CachingMode
 object MySpec: Spek({
     
     describe("...") {
-        val tempFolder = memoizedTempFolder(CachingMode.SCOPE)
+        val tempFolder by memoizedTempFolder(CachingMode.SCOPE)
         
         it ("test1") {
             val file = tempFolder.newFile("test.txt")
@@ -80,7 +80,7 @@ import org.spekframework.spek2.lifecycle.CachingMode
 object MySpec: Spek({
     
     describe("...") {
-        val tempFolder = memoizedTempFolder(CachingMode.TEST) {
+        val tempFolder by memoizedTempFolder(CachingMode.TEST) {
             val f = newFolder("folderWithinTempFolder")
             newSymbolicLink("link", f)
         }
