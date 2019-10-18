@@ -6,7 +6,7 @@
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=robstoll_tutteli-spek-extensions&metric=coverage)](https://sonarcloud.io/dashboard?id=robstoll_tutteli-spek-extensions)
 
 # Tutteli spek extension
-A set of [Spek](http://spekframework.org/) extensions such as [TempFolder](#tempfolder).
+A set of [Spek](http://spekframework.org/) extensions such as [MemoizedTempFolder](#MemoizedTempFolder).
 
 # Installation
 
@@ -27,7 +27,10 @@ dependencies {
 ```
 Use `tutteli-spek-extensions-android` in case you deal with android (does not contain a module-info.java which d8 cannot cope with).
 
-## Usage
+# Features
+
+## MemoizedTempFolder
+
 `memoizedTempFolder` provides -- similar to TemporaryFolder in junit4 -- utility methods to create temp files and folders and takes care of deleting them.
 
 Specify a `memoizedTempFolder` within a group like scope near to the test you are going to use the tempFolder (default `CachingMode` is per `TEST`, so each test gets its own temporary directory)
