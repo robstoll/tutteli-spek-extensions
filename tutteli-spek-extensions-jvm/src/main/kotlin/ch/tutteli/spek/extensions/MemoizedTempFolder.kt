@@ -50,7 +50,13 @@ class MemoizedTempFolder internal constructor() {
     /**
      * Creates a new folder with the given [name] in the current [tmpDir].
      */
-    fun newFolder(name: String): Path = Files.createDirectory(resolve(name))
+    @Deprecated("use newDirectory, will be removed with 2.0.0", ReplaceWith("newDirectory(name)"))
+    fun newFolder(name: String): Path = newDirectory(name)
+
+    /**
+     * Creates a new directory with the given [name] in the current [tmpDir].
+     */
+    fun newDirectory(name: String): Path = Files.createDirectory(resolve(name))
 
     /**
      * Creates a new symbolic link with the given [name] in the current [tmpDir], targeting the given [target].
@@ -61,6 +67,11 @@ class MemoizedTempFolder internal constructor() {
      * Resolves the name in the current [tmpDir] and returns the resulting [Path].
      */
     fun resolve(pathAsString: String): Path = tmpDir.resolve(pathAsString)
+
+    /**
+     * Applies the given function [f] to the [tmpDir] -- especially useful in combination with [Niok](https://github.com/robstoll/niok)
+     */
+    fun <R> withinTmpDir(f: Path.() -> R): R = with(tmpDir, f)
 
     internal fun destructor() {
         Files.walkFileTree(tmpDir, object : SimpleFileVisitor<Path>() {

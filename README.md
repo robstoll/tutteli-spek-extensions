@@ -36,6 +36,7 @@ Use `tutteli-spek-extensions-android` in case you deal with android (does not co
 Specify a `memoizedTempFolder` within a group like scope near to the test you are going to use the tempFolder (default `CachingMode` is per `TEST`, so each test gets its own temporary directory)
 
 ```kotlin
+import ch.tutteli.spek.extensions.memoizedTempFolder
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -54,6 +55,9 @@ object MySpec: Spek({
 Pass a `CachingMode` if required (see [Caching modes @ spekframework.org](https://www.spekframework.org/core-concepts/#caching-modes))
 For instance: 
 ```kotlin
+import ch.tutteli.atrium.api.fluent.en_GB.jdk8.*
+import ch.tutteli.atrium.verbs.expect
+import ch.tutteli.spek.extensions.memoizedTempFolder
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import org.spekframework.spek2.lifecycle.CachingMode
@@ -75,7 +79,11 @@ object MySpec: Spek({
 ```
 And you can use the second argument of `memoizedTempFolder` for additional setup:
 
+
 ```kotlin
+import ch.tutteli.atrium.api.fluent.en_GB.jdk8.*
+import ch.tutteli.atrium.verbs.expect
+import ch.tutteli.spek.extensions.memoizedTempFolder
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import org.spekframework.spek2.lifecycle.CachingMode
@@ -84,7 +92,7 @@ object MySpec: Spek({
     
     describe("...") {
         val tempFolder by memoizedTempFolder(CachingMode.TEST) {
-            val f = newFolder("folderWithinTempFolder")
+            val f = newDirectory("folderWithinTempFolder")
             newSymbolicLink("link", f)
         }
         
@@ -96,11 +104,32 @@ object MySpec: Spek({
 })
 ```
 
-There are a few other utility methods defined on `MemoizedTempFolder`: `newFolder`, `newSymbolicLink` and `resolves`
-Please open an issue if you want more or create a pull request.
+There are a few other utility methods defined on `MemoizedTempFolder`: `newDirectory`, `newSymbolicLink`, 
+`resolves` and `withinTmpDir`.
 
-In case you want to operate on `Path` we recommend using [Niok](https://github.com/robstoll/niok) and
-for assertions use [Atrium](https://github.com/robstoll/atrium) with the jdk8 extension.
+Tutteli spek extension works best in combination with [Niok](https://github.com/robstoll/niok)
+which enhances `Path` with methods like `createDirectories`, `setAttribute`, `writeLines` and many more (not only useful in tests but also in production code).
+With Niok in place, more complicated setup can be defined easily:
+```kotlin
+import ch.tutteli.spek.extensions.memoizedTempFolder
+import ch.tutteli.niok.*
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
+import org.spekframework.spek2.lifecycle.CachingMode
+
+object MySpec: Spek({
+    
+    describe("...") {
+        val tempFolder by memoizedTempFolder(CachingMode.TEST) {
+            withinTmpDir {
+                val subDir = resolve("dir1/dir2/dir3").createDirectories()
+                subDir.resolve("a.txt").writeLines(listOf("a", "b", "c"))
+            }
+        }
+    }
+})
+```
+And if you like to assert certain properties of a Path, then we recommend using [Atrium](https://github.com/robstoll/atrium) with the jdk8 extension.
 
 # License
 tutteli-spek-extensions is licensed under [Apache 2.0](https://opensource.org/licenses/Apache2.0).
