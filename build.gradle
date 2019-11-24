@@ -13,7 +13,7 @@ buildscript {
 
         // gradle plugins
         tutteli_plugins_version = "0.30.0"
-        detekt_version = '1.1.1'
+        detekt_version = '1.2.0'
 
         srcAndResourcesFromJvmProject = { Project project ->
             def jvmProject = prefixedProject('jvm')
