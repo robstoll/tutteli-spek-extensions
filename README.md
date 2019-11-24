@@ -13,12 +13,15 @@ A set of [Spek](http://spekframework.org/) extensions such as [MemoizedTempFolde
 *gradle*
 ```groovy
 repositories {
-    jcenter()
+    mavenCentral()
+
+    // or
+    // jcenter()
+
     // or the following repo    
-    //maven {
-    //    url  "https://dl.bintray.com/robstoll/tutteli-jars" 
-    //}
-    
+    // maven {
+    //     url  "https://dl.bintray.com/robstoll/tutteli-jars" 
+    // }
 }
 
 dependencies {
