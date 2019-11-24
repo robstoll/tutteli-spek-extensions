@@ -69,7 +69,8 @@ class MemoizedTempFolder internal constructor() {
     fun resolve(pathAsString: String): Path = tmpDir.resolve(pathAsString)
 
     /**
-     * Applies the given function [f] to the [tmpDir] -- especially useful in combination with [Niok](https://github.com/robstoll/niok)
+     * Applies the given function [f] to the [tmpDir] -- especially useful in combination
+     * with [Niok](https://github.com/robstoll/niok).
      */
     fun <R> withinTmpDir(f: Path.() -> R): R = with(tmpDir, f)
 

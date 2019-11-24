@@ -55,7 +55,7 @@ object FeatureSpec : Spek({
     lateinit var dir1: Path
     describe("newDirectory") {
 
-        it("creates a folder with the corresponding name") {
+        it("creates a directory with the corresponding name") {
             val folderName = "testDir"
             dir1 = tmpFolder.newDirectory(folderName)
             tmpDirLeak = tmpFolder.tmpDir
@@ -68,6 +68,24 @@ object FeatureSpec : Spek({
         }
     }
     checkCleanup("newDirectory") { dir1 }
+
+    lateinit var folder: Path
+    describe("newFolder") {
+
+        it("creates a folder with the corresponding name") {
+            val folderName = "testDir"
+            @Suppress("DEPRECATION")
+            folder = tmpFolder.newFolder(folderName)
+            tmpDirLeak = tmpFolder.tmpDir
+
+            expect(folder) {
+                name.toBe(folderName)
+                exists()
+                parent.toBe(tmpFolder.tmpDir)
+            }
+        }
+    }
+    checkCleanup("newFolder") { folder }
 
     lateinit var symbolicLink: Path
     describe("newSymbolicLink") {
@@ -105,5 +123,4 @@ object FeatureSpec : Spek({
         }
     }
     checkCleanup("withinTmpDir") { dir2 }
-
 })
