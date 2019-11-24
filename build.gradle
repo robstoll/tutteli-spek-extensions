@@ -11,7 +11,8 @@ buildscript {
         atrium_version = '0.8.0'
         niok_version = '1.2.0'
 
-        // detekt/sonarcloud
+        // gradle plugins
+        tutteli_plugins_version = "0.30.0"
         detekt_version = '1.1.1'
 
         srcAndResourcesFromJvmProject = { Project project ->
@@ -37,12 +38,12 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "ch.tutteli:tutteli-gradle-dokka:$gradle.ext.tutteli_plugins_version"
-        classpath "ch.tutteli:tutteli-gradle-junitjacoco:$gradle.ext.tutteli_plugins_version"
-        classpath "ch.tutteli:tutteli-gradle-kotlin-module-info:$gradle.ext.tutteli_plugins_version"
-        classpath "ch.tutteli:tutteli-gradle-kotlin-utils:$gradle.ext.tutteli_plugins_version"
-        classpath "ch.tutteli:tutteli-gradle-project-utils:$gradle.ext.tutteli_plugins_version"
-        classpath "ch.tutteli:tutteli-gradle-publish:$gradle.ext.tutteli_plugins_version"
+        classpath "ch.tutteli:tutteli-gradle-dokka:$tutteli_plugins_version"
+        classpath "ch.tutteli:tutteli-gradle-junitjacoco:$tutteli_plugins_version"
+        classpath "ch.tutteli:tutteli-gradle-kotlin-module-info:$tutteli_plugins_version"
+        classpath "ch.tutteli:tutteli-gradle-kotlin-utils:$tutteli_plugins_version"
+        classpath "ch.tutteli:tutteli-gradle-project-utils:$tutteli_plugins_version"
+        classpath "ch.tutteli:tutteli-gradle-publish:$tutteli_plugins_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version"
     }
 }
