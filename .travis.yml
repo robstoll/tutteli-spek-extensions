@@ -20,7 +20,7 @@ install: true
 script:
   - ./gradlew build detekt
   - |
-      if [ "$TRAVIS_TEST_RESULT" == 0 ] && [ "$TRAVIS_JDK_VERSION" == oraclejdk11 ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
+      if [ "$TRAVIS_TEST_RESULT" == 0 ] && [ "$TRAVIS_JDK_VERSION" == oraclejdk11 ]; then
           sonar-scanner \
               -Dsonar.projectVersion=1.1.0 \
               -Dsonar.projectKey=robstoll_tutteli-spek-extensions \
