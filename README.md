@@ -39,7 +39,7 @@ Use `tutteli-spek-extensions-android` in case you deal with android (does not co
 Specify a `memoizedTempFolder` within a group like scope near to the test you are going to use the tempFolder (default `CachingMode` is per `TEST`, so each test gets its own temporary directory)
 
 ```kotlin
-import ch.tutteli.spek.extensions.memoizedTempFolder
+import memoizedTempFolder
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -60,7 +60,7 @@ For instance:
 ```kotlin
 import ch.tutteli.atrium.api.fluent.en_GB.jdk8.*
 import ch.tutteli.atrium.verbs.expect
-import ch.tutteli.spek.extensions.memoizedTempFolder
+import memoizedTempFolder
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import org.spekframework.spek2.lifecycle.CachingMode
@@ -86,7 +86,7 @@ And you can use the second argument of `memoizedTempFolder` for additional setup
 ```kotlin
 import ch.tutteli.atrium.api.fluent.en_GB.jdk8.*
 import ch.tutteli.atrium.verbs.expect
-import ch.tutteli.spek.extensions.memoizedTempFolder
+import memoizedTempFolder
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import org.spekframework.spek2.lifecycle.CachingMode
@@ -114,7 +114,7 @@ Tutteli spek extension works best in combination with [Niok](https://github.com/
 which enhances `Path` with methods like `createDirectories`, `setAttribute`, `writeLines` and many more (not only useful in tests but also in production code).
 With Niok in place, more complicated setup can be defined easily:
 ```kotlin
-import ch.tutteli.spek.extensions.memoizedTempFolder
+import memoizedTempFolder
 import ch.tutteli.niok.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe

@@ -24,9 +24,9 @@ script:
               -Dsonar.projectVersion=1.1.0 \
               -Dsonar.projectKey=robstoll_tutteli-spek-extensions \
               -Dsonar.kotlin.detekt.reportPaths=build/reports/detekt/detekt.xml \
-              -Dsonar.sources=tutteli-spek-extensions-jvm/src/main/kotlin \
-              -Dsonar.tests=tutteli-spek-extensions-jvm/src/test/kotlin \
-              -Dsonar.coverage.jacoco.xmlReportPaths=tutteli-spek-extensions-jvm/build/reports/jacoco/report.xml
+              -Dsonar.sources=src/main/kotlin \
+              -Dsonar.tests=src/test/kotlin \
+              -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/report.xml
       fi
 
 after_success:
