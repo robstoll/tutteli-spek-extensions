@@ -1,16 +1,13 @@
 package ch.tutteli.spek.extensions
 
-import ch.tutteli.atrium.api.cc.en_GB.isNotSameAs
-import ch.tutteli.atrium.api.cc.en_GB.returnValueOf
-import ch.tutteli.atrium.api.cc.en_GB.toBe
-import ch.tutteli.atrium.verbs.expect
+import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.niok.createDirectories
 import ch.tutteli.niok.followSymbolicLink
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
 import org.spekframework.spek2.lifecycle.CachingMode
 import org.spekframework.spek2.style.specification.describe
-import java.nio.file.LinkOption.NOFOLLOW_LINKS
 import java.nio.file.Path
 
 object FeatureSpec : Spek({
@@ -38,10 +35,10 @@ object FeatureSpec : Spek({
         it("creates a file with the corresponding name") {
             tmpDirLeak = tmpFolder.tmpDir
 
-            val fileName = "test.txt"
-            file = tmpFolder.newFile(fileName)
+            val aFileName = "test.txt"
+            file = tmpFolder.newFile(aFileName)
             expect(file) {
-                name.toBe(fileName)
+                fileName.toBe(aFileName)
                 exists()
                 parent.toBe(tmpFolder.tmpDir)
             }
@@ -61,7 +58,7 @@ object FeatureSpec : Spek({
             tmpDirLeak = tmpFolder.tmpDir
 
             expect(dir1) {
-                name.toBe(folderName)
+                fileName.toBe(folderName)
                 exists()
                 parent.toBe(tmpFolder.tmpDir)
             }
@@ -79,7 +76,7 @@ object FeatureSpec : Spek({
             tmpDirLeak = tmpFolder.tmpDir
 
             expect(folder) {
-                name.toBe(folderName)
+                fileName.toBe(folderName)
                 exists()
                 parent.toBe(tmpFolder.tmpDir)
             }
@@ -96,10 +93,10 @@ object FeatureSpec : Spek({
             val target = tmpFolder.newFile("someFile.txt")
             symbolicLink = tmpFolder.newSymbolicLink(linkName, target)
             expect(symbolicLink) {
-                name.toBe(linkName)
-                exists(NOFOLLOW_LINKS)
+                fileName.toBe(linkName)
+                exists()
                 parent.toBe(tmpFolder.tmpDir)
-                returnValueOf(Path::followSymbolicLink).toBe(target)
+                feature(Path::followSymbolicLink).toBe(target)
             }
         }
     }
@@ -116,8 +113,8 @@ object FeatureSpec : Spek({
                 dir2.resolve("dir3/dir4/").createDirectories()
             }
             expect(dir2) {
-                name.toBe(dirName)
-                exists(NOFOLLOW_LINKS)
+                fileName.toBe(dirName)
+                exists()
                 parent.toBe(tmpFolder.tmpDir)
             }
         }

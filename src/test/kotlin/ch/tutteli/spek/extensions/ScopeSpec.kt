@@ -1,6 +1,7 @@
 package ch.tutteli.spek.extensions
 
-import ch.tutteli.atrium.verbs.expect
+import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.niok.delete
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.lifecycle.CachingMode
