@@ -1,6 +1,6 @@
 [![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/tutteli-spek-extensions/images/download.svg) ](https://bintray.com/robstoll/tutteli-jars/tutteli-spek-extensions/_latestVersion)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
-[![Build Status Travis](https://travis-ci.org/robstoll/tutteli-spek-extensions.svg?tag=v1.1.0)](https://travis-ci.org/robstoll/tutteli-spek-extensions/branches)
+[![Build Status Travis](https://travis-ci.com/robstoll/tutteli-spek-extensions.svg?tag=v1.1.0)](https://travis-ci.com/robstoll/tutteli-spek-extensions/branches)
 [![Build status GitHub Actions](https://github.com/robstoll/tutteli-spek-extensions/workflows/Windows/badge.svg)](https://github.com/robstoll/tutteli-spek-extensions/actions/)
 [![SonarCloud Status](https://sonarcloud.io/api/project_badges/measure?project=robstoll_tutteli-spek-extensions&metric=alert_status)](https://sonarcloud.io/dashboard?id=robstoll_tutteli-spek-extensions)
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=robstoll_tutteli-spek-extensions&metric=coverage)](https://sonarcloud.io/dashboard?id=robstoll_tutteli-spek-extensions)
