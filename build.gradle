@@ -1,6 +1,6 @@
 buildscript {
     project.group = 'ch.tutteli.spek'
-    project.version ='1.1.0'
+    project.version ='1.1.1-SNAPSHOT'
     project.description = 'A set of Spek extensions'
 
     ext {
@@ -74,7 +74,6 @@ dependencies {
 apply plugin: "io.gitlab.arturbosch.detekt"
 detekt {
     failFast = true
-    input = files(subprojects*.collect { it.projectDir })
     config = files("$rootProject.projectDir/gradle/scripts/detekt.yml")
     reports {
         xml.enabled = true

@@ -19,30 +19,20 @@ complexity:
         ignoreSingleWhenExpression: true
         ignoreSimpleWhenEntries: true
     LongParameterList:
-        threshold: 7
-    StringLiteralDuplication:
-        excludes: "**/src/test/**"
+        functionThreshold: 7
 
     TooManyFunctions:
-        ignorePrivate: true
-
-exceptions:
-    NotImplementedDeclaration:
-        excludes: "**/src/test/**"
-
-naming:
-    FunctionMinLength:
-        excludes: "**/src/test/**"
+        active: false
 
 performance:
     ArrayPrimitive:
         excludes: "**/src/test/**"
+    SpreadOperator:
+        active: false
 
 potential-bugs:
     UnsafeCast:
         active: false
-    LateinitUsage:
-        excludes: "**/src/test/**"
 
 style:
     MandatoryBracesIfStatements:
@@ -57,3 +47,4 @@ style:
         active: false
     WildcardImport:
         active: false
+
