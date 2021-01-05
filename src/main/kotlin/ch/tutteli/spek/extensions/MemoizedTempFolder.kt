@@ -3,11 +3,11 @@ package ch.tutteli.spek.extensions
 import org.spekframework.spek2.dsl.LifecycleAware
 import org.spekframework.spek2.lifecycle.*
 import java.io.IOException
-import java.nio.file.FileVisitResult
-import java.nio.file.Files
-import java.nio.file.Path
-import java.nio.file.SimpleFileVisitor
+import java.lang.IllegalStateException
+import java.nio.file.*
 import java.nio.file.attribute.BasicFileAttributes
+import java.util.stream.Collectors
+import kotlin.io.path.isDirectory
 
 /**
  * Creates a temporary folder which cleans itself up when the memoized value goes out of scope.
@@ -82,7 +82,16 @@ class MemoizedTempFolder internal constructor() {
             override fun postVisitDirectory(dir: Path, exc: IOException?) = deleteAndContinue(dir)
 
             private fun deleteAndContinue(path: Path): FileVisitResult {
-                Files.delete(path)
+                try {
+                    Files.delete(path)
+                } catch (ex: DirectoryNotEmptyException) {
+                    throw IllegalStateException(
+                        "Directory $path not empty after deleting all containing files and directories.\n" +
+                            "Most likely an unclosed file handle interfered. Make sure you have closed all IO-Streams.\n" +
+                            "We recommend using `use` were possible to do the auto-close handling, for instance `Files.list.use { ... }`",
+                        ex
+                    )
+                }
                 return FileVisitResult.CONTINUE
             }
         })

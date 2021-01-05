@@ -2,8 +2,7 @@ package ch.tutteli.spek.extensions
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
-import ch.tutteli.niok.createDirectories
-import ch.tutteli.niok.followSymbolicLink
+import ch.tutteli.niok.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
 import org.spekframework.spek2.lifecycle.CachingMode
@@ -84,15 +83,15 @@ object FeatureSpec : Spek({
     }
     checkCleanup("newFolder") { folder }
 
-    lateinit var symbolicLink: Path
-    describe("newSymbolicLink") {
+    lateinit var symbolicLinkFile: Path
+    describe("newSymbolicLink with a file") {
         it("creates a link with the corresponding name") {
             tmpDirLeak = tmpFolder.tmpDir
 
             val linkName = "testLink"
             val target = tmpFolder.newFile("someFile.txt")
-            symbolicLink = tmpFolder.newSymbolicLink(linkName, target)
-            expect(symbolicLink) {
+            symbolicLinkFile = tmpFolder.newSymbolicLink(linkName, target)
+            expect(symbolicLinkFile) {
                 fileName.toBe(linkName)
                 exists()
                 parent.toBe(tmpFolder.tmpDir)
@@ -100,7 +99,26 @@ object FeatureSpec : Spek({
             }
         }
     }
-    checkCleanup("newSymbolicLink") { symbolicLink }
+    checkCleanup("newSymbolicLink file") { symbolicLinkFile }
+
+    lateinit var symbolicLinkDir: Path
+    describe("newSymbolicLink with a non-empty directory") {
+        it("creates a link with the corresponding name") {
+            tmpDirLeak = tmpFolder.tmpDir
+
+            val target = tmpFolder.newDirectory("e")
+            target.newFile("bla")
+            val linkName = "f"
+            symbolicLinkDir = tmpFolder.newSymbolicLink(linkName, target)
+            expect(symbolicLinkDir) {
+                fileName.toBe(linkName)
+                exists()
+                parent.toBe(tmpFolder.tmpDir)
+                feature(Path::followSymbolicLink).toBe(target)
+            }
+        }
+    }
+    checkCleanup("newSymbolicLink dir") { symbolicLinkDir }
 
     lateinit var dir2: Path
     describe("withinTmpDir") {
