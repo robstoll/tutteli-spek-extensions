@@ -1,6 +1,6 @@
 buildscript {
     project.group = 'ch.tutteli.spek'
-    project.version ='1.1.1-SNAPSHOT'
+    rootProject.version = '1.1.1-SNAPSHOT'
     project.description = 'A set of Spek extensions'
 
     ext {
@@ -13,8 +13,9 @@ buildscript {
         niok_version = '1.3.4'
 
         // gradle plugins
-        tutteli_plugins_version = "0.33.1"
+        tutteli_plugins_version = '0.33.1'
         detekt_version = '1.15.0'
+        sonarqube_version = '3.0'
     }
 
     repositories {
@@ -31,12 +32,14 @@ buildscript {
         classpath "ch.tutteli:tutteli-gradle-publish:$tutteli_plugins_version"
         classpath "ch.tutteli:tutteli-gradle-spek:$tutteli_plugins_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version"
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:$sonarqube_version"
     }
 }
 
 apply plugin: "ch.tutteli.project.utils"
 apply plugin: 'ch.tutteli.kotlin.utils'
 kotlinutils.kotlinVersion = kotlin_version
+apply plugin: "org.sonarqube"
 
 
 repositories {
@@ -101,6 +104,18 @@ tasks.named("sonarqube").configure {
 
 Release & deploy a commit
 --------------------------------
+export SPEK_EXTENSION_PREVIOUS_VERSION=1.1.0
+export SPEK_EXTENSION_VERSION=1.1.1
+perl -0777 -i \
+  -pe "s@$SPEK_EXTENSION_PREVIOUS_VERSION@$SPEK_EXTENSION_VERSION@g;" \
+  -pe "s/rootProject.version = '$SPEK_EXTENSION_VERSION-SNAPSHOT'/rootProject.version = '$SPEK_EXTENSION_VERSION'/;" \
+  ./build.gradle
+perl -0777 -i \
+  -pe "s@$SPEK_EXTENSION_PREVIOUS_VERSION@$SPEK_EXTENSION_VERSION@g;" \
+  -pe 's/(<!-- for master -->\n)\n([\S\s]*?)(\n<!-- for a specific release -->\n)<!--\n([\S\s]*?)-->\n(\n# Tutteli spek extension)/$1<!--\n$2-->$3\n$4\n$5/;' \
+  ./README.md
+git commit -a -m "v$SPEK_EXTENSION_VERSION"
+
 1. change search for X.Y.Z-SNAPSHOT and change to X.Y.Z
 2. search for current version and replace with new
 3. update master:

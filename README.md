@@ -1,9 +1,17 @@
-[![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/tutteli-spek-extensions/images/download.svg) ](https://bintray.com/robstoll/tutteli-jars/tutteli-spek-extensions/_latestVersion)
+<!-- for master -->
+<!--
+[![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/tutteli-spek-extensions/images/download.svg)](https://bintray.com/robstoll/tutteli-jars/tutteli-spek-extensions/_latestVersion)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
-[![Build Status Travis](https://travis-ci.com/robstoll/tutteli-spek-extensions.svg?tag=v1.1.0)](https://travis-ci.com/robstoll/tutteli-spek-extensions/branches)
-[![Build status GitHub Actions](https://github.com/robstoll/tutteli-spek-extensions/workflows/Windows/badge.svg)](https://github.com/robstoll/tutteli-spek-extensions/actions/)
+[![Build Status Ubuntu](https://github.com/robstoll/tutteli-spek-extensions/workflows/Ubuntu/badge.svg?event=push)](https://github.com/robstoll/tutteli-spek-extensions/actions?query=workflow%3AUbuntu+branch%3Amaster)
+[![Build Status Windows](https://github.com/robstoll/tutteli-spek-extensions/workflows/Windows/badge.svg?event=push)](https://github.com/robstoll/tutteli-spek-extensions/actions?query=workflow%3AWindows+branch%3Amaster)
 [![SonarCloud Status](https://sonarcloud.io/api/project_badges/measure?project=robstoll_tutteli-spek-extensions&metric=alert_status)](https://sonarcloud.io/dashboard?id=robstoll_tutteli-spek-extensions)
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=robstoll_tutteli-spek-extensions&metric=coverage)](https://sonarcloud.io/dashboard?id=robstoll_tutteli-spek-extensions)
+-->
+<!-- for a specific release -->
+
+[![Download](https://img.shields.io/badge/Download-1.1.1-%23007ec6)](https://bintray.com/robstoll/tutteli-jars/tutteli-spek-extensions/1.1.1 "Download 1.1.1 from Bintray")
+[![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
+
 
 # Tutteli spek extension
 A set of [Spek](http://spekframework.org/) extensions such as [MemoizedTempFolder](#MemoizedTempFolder).
@@ -25,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'ch.tutteli.spek:tutteli-spek-extensions:1.1.0'
+    testImplementation 'ch.tutteli.spek:tutteli-spek-extensions:1.1.1'
 }
 ```
 Use `tutteli-spek-extensions-android` in case you deal with android (does not contain a module-info.java which d8 cannot cope with).
@@ -84,7 +92,7 @@ And you can use the second argument of `memoizedTempFolder` for additional setup
 
 
 ```kotlin
-import ch.tutteli.atrium.api.fluent.en_GB.jdk8.*
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.verbs.expect
 import memoizedTempFolder
 import org.spekframework.spek2.Spek
@@ -132,7 +140,7 @@ object MySpec: Spek({
     }
 })
 ```
-And if you like to assert certain properties of a Path, then we recommend using [Atrium](https://github.com/robstoll/atrium) with the jdk8 extension.
+And if you like to assert certain properties of a Path, then we recommend using [Atrium](https://github.com/robstoll/atrium).
 
 # License
 tutteli-spek-extensions is licensed under [Apache 2.0](https://opensource.org/licenses/Apache2.0).
