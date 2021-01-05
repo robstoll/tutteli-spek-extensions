@@ -1,17 +1,17 @@
 <!-- for master -->
-
+<!--
 [![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/tutteli-spek-extensions/images/download.svg)](https://bintray.com/robstoll/tutteli-jars/tutteli-spek-extensions/_latestVersion)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
 [![Build Status Ubuntu](https://github.com/robstoll/tutteli-spek-extensions/workflows/Ubuntu/badge.svg?event=push)](https://github.com/robstoll/tutteli-spek-extensions/actions?query=workflow%3AUbuntu+branch%3Amaster)
 [![Build Status Windows](https://github.com/robstoll/tutteli-spek-extensions/workflows/Windows/badge.svg?event=push)](https://github.com/robstoll/tutteli-spek-extensions/actions?query=workflow%3AWindows+branch%3Amaster)
 [![SonarCloud Status](https://sonarcloud.io/api/project_badges/measure?project=robstoll_tutteli-spek-extensions&metric=alert_status)](https://sonarcloud.io/dashboard?id=robstoll_tutteli-spek-extensions)
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=robstoll_tutteli-spek-extensions&metric=coverage)](https://sonarcloud.io/dashboard?id=robstoll_tutteli-spek-extensions)
-
-<!-- for a specific release -->
-<!--
-[![Download](https://img.shields.io/badge/Download-1.1.1-%23007ec6)](https://bintray.com/robstoll/tutteli-jars/tutteli-spek-extensions/1.1.1 "Download 1.1.1 from Bintray")
-[![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
 -->
+<!-- for a specific release -->
+
+[![Download](https://img.shields.io/badge/Download-1.2.0-%23007ec6)](https://bintray.com/robstoll/tutteli-jars/tutteli-spek-extensions/1.2.0 "Download 1.2.0 from Bintray")
+[![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
+
 
 # Tutteli spek extension
 A set of [Spek](http://spekframework.org/) extensions such as [MemoizedTempFolder](#MemoizedTempFolder).
@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'ch.tutteli.spek:tutteli-spek-extensions:1.1.1'
+    testImplementation 'ch.tutteli.spek:tutteli-spek-extensions:1.2.0'
 }
 ```
 Use `tutteli-spek-extensions-android` in case you deal with android (does not contain a module-info.java which d8 cannot cope with).
