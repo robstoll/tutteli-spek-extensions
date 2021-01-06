@@ -36,7 +36,6 @@ dependencies {
     testImplementation 'ch.tutteli.spek:tutteli-spek-extensions:1.2.0'
 }
 ```
-Use `tutteli-spek-extensions-android` in case you deal with android (does not contain a module-info.java which d8 cannot cope with).
 
 # Features
 
