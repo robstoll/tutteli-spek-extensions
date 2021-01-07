@@ -1,6 +1,6 @@
 buildscript {
     project.group = 'ch.tutteli.spek'
-    rootProject.version = '1.2.1'
+    rootProject.version = '1.3.0-SNAPSHOT'
     project.description = 'A set of Spek extensions'
 
     ext {
@@ -108,7 +108,7 @@ tasks.named("sonarqube").configure {
 Release & deploy a commit
 --------------------------------
 export SPEK_EXTENSION_PREVIOUS_VERSION=1.2.1
-export SPEK_EXTENSION_VERSION=1.2.1
+export SPEK_EXTENSION_VERSION=1.3.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$SPEK_EXTENSION_PREVIOUS_VERSION@$SPEK_EXTENSION_VERSION@g;" \
    -pe "s@tree/master@tree/v$SPEK_EXTENSION_VERSION@g;";
@@ -139,7 +139,7 @@ Prepare next dev cycle
 -----------------------
 
 export SPEK_EXTENSION_VERSION=1.2.1
-export SPEK_EXTENSION_NEXT_VERSION=1.2.1
+export SPEK_EXTENSION_NEXT_VERSION=1.3.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@tree/v$SPEK_EXTENSION_VERSION@tree/master@g;";
 perl -0777 -i \
