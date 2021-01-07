@@ -1,4 +1,4 @@
-name: Sonarcloud
+name: Ubuntu 11
 on:
   push:
     branches: [ master ]
