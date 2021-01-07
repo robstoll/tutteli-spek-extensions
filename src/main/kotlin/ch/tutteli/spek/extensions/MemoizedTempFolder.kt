@@ -1,13 +1,11 @@
 package ch.tutteli.spek.extensions
 
 import org.spekframework.spek2.dsl.LifecycleAware
-import org.spekframework.spek2.lifecycle.*
+import org.spekframework.spek2.lifecycle.CachingMode
+import org.spekframework.spek2.lifecycle.MemoizedValue
 import java.io.IOException
-import java.lang.IllegalStateException
 import java.nio.file.*
 import java.nio.file.attribute.BasicFileAttributes
-import java.util.stream.Collectors
-import kotlin.io.path.isDirectory
 
 /**
  * Creates a temporary folder which cleans itself up when the memoized value goes out of scope.
