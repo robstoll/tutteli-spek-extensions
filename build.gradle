@@ -65,6 +65,9 @@ apply plugin: 'ch.tutteli.kotlin.module.info'
 apply plugin: 'ch.tutteli.publish'
 apply plugin: 'ch.tutteli.spek'
 
+sourceCompatibility = 8
+targetCompatibility = 8
+
 dependencies {
     implementation "org.spekframework.spek2:spek-dsl-jvm:$spek_version", excludeKotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
