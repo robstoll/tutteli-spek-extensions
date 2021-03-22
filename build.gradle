@@ -5,7 +5,7 @@ buildscript {
 
     ext {
         // main
-        kotlin_version = '1.4.31'
+        kotlin_version = '1.4.32'
 
         // test
         spek_version = '2.0.15'
