@@ -8,7 +8,7 @@ buildscript {
         kotlin_version = '1.4.32'
 
         // test
-        spek_version = '2.0.15'
+        spek_version = '2.0.16'
         atrium_version = '0.15.0'
         niok_version = '1.4.1'
 
