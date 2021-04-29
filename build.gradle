@@ -15,7 +15,7 @@ buildscript {
         // gradle plugins
         tutteli_plugins_version = '0.33.1'
         detekt_version = '1.16.0'
-        sonarqube_version = '3.1.1'
+        sonarqube_version = '3.2.0'
     }
 
     repositories {
