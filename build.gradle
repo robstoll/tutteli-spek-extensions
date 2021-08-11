@@ -10,7 +10,7 @@ buildscript {
         // test
         spek_version = '2.0.16'
         atrium_version = '0.15.0'
-        niok_version = '1.4.6'
+        niok_version = '1.4.7'
 
         // gradle plugins
         tutteli_plugins_version = '0.33.1'
