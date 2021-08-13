@@ -13,7 +13,7 @@ buildscript {
         niok_version = '1.4.7'
 
         // gradle plugins
-        tutteli_plugins_version = '0.33.1'
+        tutteli_plugins_version = '4.0.2'
         detekt_version = '1.17.1'
         sonarqube_version = '3.3'
     }
