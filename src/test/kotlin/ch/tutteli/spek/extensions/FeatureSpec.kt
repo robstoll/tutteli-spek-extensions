@@ -18,13 +18,13 @@ object FeatureSpec : Spek({
     fun Root.checkCleanup(name: String, pathProvider: () -> Path) {
         describe("after $name") {
             it("file is deleted") {
-                expect(pathProvider()).existsNot()
+                expect(pathProvider()).notToExist()
             }
             it("tmpDir is deleted") {
-                expect(tmpDirLeak).existsNot()
+                expect(tmpDirLeak).notToExist()
             }
             it("new tmpDir is not the same") {
-                expect(tmpDirLeak).isNotSameAs(tmpFolder.tmpDir)
+                expect(tmpDirLeak).notToBeTheInstance(tmpFolder.tmpDir)
             }
         }
     }
@@ -37,13 +37,13 @@ object FeatureSpec : Spek({
             val aFileName = "test.txt"
             file = tmpFolder.newFile(aFileName)
             expect(file) {
-                fileName.toBe(aFileName)
-                exists()
-                parent.toBe(tmpFolder.tmpDir)
+                fileName.toEqual(aFileName)
+                toExist()
+                parent.toEqual(tmpFolder.tmpDir)
             }
         }
         it("tmpDir is deleted after scope") {
-            expect(tmpDirLeak).exists()
+            expect(tmpDirLeak).toExist()
         }
     }
     checkCleanup("newFile") { file }
@@ -57,9 +57,9 @@ object FeatureSpec : Spek({
             tmpDirLeak = tmpFolder.tmpDir
 
             expect(dir1) {
-                fileName.toBe(folderName)
-                exists()
-                parent.toBe(tmpFolder.tmpDir)
+                fileName.toEqual(folderName)
+                toExist()
+                parent.toEqual(tmpFolder.tmpDir)
             }
         }
     }
@@ -75,9 +75,9 @@ object FeatureSpec : Spek({
             tmpDirLeak = tmpFolder.tmpDir
 
             expect(folder) {
-                fileName.toBe(folderName)
-                exists()
-                parent.toBe(tmpFolder.tmpDir)
+                fileName.toEqual(folderName)
+                toExist()
+                parent.toEqual(tmpFolder.tmpDir)
             }
         }
     }
@@ -92,10 +92,10 @@ object FeatureSpec : Spek({
             val target = tmpFolder.newFile("someFile.txt")
             symbolicLinkFile = tmpFolder.newSymbolicLink(linkName, target)
             expect(symbolicLinkFile) {
-                fileName.toBe(linkName)
-                exists()
-                parent.toBe(tmpFolder.tmpDir)
-                feature(Path::followSymbolicLink).toBe(target)
+                fileName.toEqual(linkName)
+                toExist()
+                parent.toEqual(tmpFolder.tmpDir)
+                feature(Path::followSymbolicLink).toEqual(target)
             }
         }
     }
@@ -111,10 +111,10 @@ object FeatureSpec : Spek({
             val linkName = "f"
             symbolicLinkDir = tmpFolder.newSymbolicLink(linkName, target)
             expect(symbolicLinkDir) {
-                fileName.toBe(linkName)
-                exists()
-                parent.toBe(tmpFolder.tmpDir)
-                feature(Path::followSymbolicLink).toBe(target)
+                fileName.toEqual(linkName)
+                toExist()
+                parent.toEqual(tmpFolder.tmpDir)
+                feature(Path::followSymbolicLink).toEqual(target)
             }
         }
     }
@@ -131,9 +131,9 @@ object FeatureSpec : Spek({
                 dir2.resolve("dir3/dir4/").createDirectories()
             }
             expect(dir2) {
-                fileName.toBe(dirName)
-                exists()
-                parent.toBe(tmpFolder.tmpDir)
+                fileName.toEqual(dirName)
+                toExist()
+                parent.toEqual(tmpFolder.tmpDir)
             }
         }
     }

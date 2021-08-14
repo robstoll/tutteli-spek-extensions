@@ -20,6 +20,9 @@ plugins {
     // necessary because spek is an unnamed module, drop again in case https://github.com/spekframework/spek/issues/981 is resolved
     id("de.jjohannes.extra-java-module-info") version "0.9"
 }
+val atriumVersion by extra("0.17.0-RC1")
+val niokVersion by extra("1.4.7")
+val spekVersion by extra("2.0.16")
 
 repositories {
     mavenCentral()
@@ -36,20 +39,20 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
         languageVersion = "1.4"
     }
 }
-val spekVersion by extra("2.0.16")
+
 dependencies {
     api("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
     implementation(kotlin("stdlib"))
     implementation(kotlin("reflect"))
 
-    testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB:0.16.0")
-    testImplementation("ch.tutteli.niok:niok:1.4.7")
+    testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB:$atriumVersion")
+    testImplementation("ch.tutteli.niok:niok:$niokVersion")
 }
 
 // add module information for all direct and transitive dependencies that are not modules
 extraJavaModuleInfo {
-     failOnMissingModuleInfo.set(false)
-     automaticModule("spek-dsl-jvm-$spekVersion.jar", "spek.dsl.jvm")
+    failOnMissingModuleInfo.set(false)
+    automaticModule("spek-dsl-jvm-$spekVersion.jar", "spek.dsl.jvm")
 }
 
 val docsDir = projectDir.resolve("docs/kdoc")

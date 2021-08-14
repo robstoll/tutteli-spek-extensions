@@ -1,6 +1,6 @@
 package ch.tutteli.spek.extensions
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.niok.getFileAttributeView
@@ -37,7 +37,7 @@ object DirectoryNotEmptySpec : Spek({
             expect {
                 tmpFolder.destructor()
             }.toThrow<IllegalStateException> {
-                messageContains("not empty after deleting all containing files and directories")
+                messageToContain("not empty after deleting all containing files and directories")
             }
         }
     }
