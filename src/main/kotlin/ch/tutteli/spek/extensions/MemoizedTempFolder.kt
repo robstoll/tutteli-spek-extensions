@@ -83,6 +83,7 @@ class MemoizedTempFolder internal constructor() {
                 try {
                     Files.delete(path)
                 } catch (ex: DirectoryNotEmptyException) {
+                    @Suppress("MaxLineLength")
                     throw IllegalStateException(
                         "Directory $path not empty after deleting all containing files and directories.\n" +
                             "Most likely an unclosed file handle interfered. Make sure you have closed all IO-Streams.\n" +

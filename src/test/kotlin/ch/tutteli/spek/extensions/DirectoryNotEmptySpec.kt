@@ -18,11 +18,17 @@ object DirectoryNotEmptySpec : Spek({
 
         // Windows
         val ifPosixNotSupported =
-            if (Paths.get("test").getFileAttributeView<PosixFileAttributeView>() == null) Skip.No
-            else Skip.Yes("POSIX permissions are supported on this file system, locking will only be an advice, hence skipping")
+            if (Paths.get("test").getFileAttributeView<PosixFileAttributeView>() == null) {
+                Skip.No
+            } else {
+                Skip.Yes(
+                    "POSIX permissions are supported on this file system, " +
+                        "locking will only be an advice, hence skipping"
+                )
+            }
 
         it("outputs a hint about DirectoryNotEmptyException", skip = ifPosixNotSupported) {
-            val tmpFolder = MemoizedTempFolder();
+            val tmpFolder = MemoizedTempFolder()
             val a = tmpFolder.newDirectory("a")
             a.newFile("b.txt")
 
