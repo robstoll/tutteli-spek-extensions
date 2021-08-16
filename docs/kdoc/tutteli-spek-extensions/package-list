@@ -1,0 +1,14 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:ch.tutteli.spek.extensions////PointingToDeclaration/tutteli-spek-extensions/ch.tutteli.spek.extensions/index.html
+$dokka.location:ch.tutteli.spek.extensions//memoizedTempFolder/org.spekframework.spek2.dsl.LifecycleAware#org.spekframework.spek2.lifecycle.CachingMode#kotlin.Function1[ch.tutteli.spek.extensions.MemoizedTempFolder,kotlin.Unit]/PointingToDeclaration/tutteli-spek-extensions/ch.tutteli.spek.extensions/memoized-temp-folder.html
+$dokka.location:ch.tutteli.spek.extensions/MemoizedTempFolder///PointingToDeclaration/tutteli-spek-extensions/ch.tutteli.spek.extensions/-memoized-temp-folder/index.html
+$dokka.location:ch.tutteli.spek.extensions/MemoizedTempFolder/newDirectory/#kotlin.String/PointingToDeclaration/tutteli-spek-extensions/ch.tutteli.spek.extensions/-memoized-temp-folder/new-directory.html
+$dokka.location:ch.tutteli.spek.extensions/MemoizedTempFolder/newFile/#kotlin.String/PointingToDeclaration/tutteli-spek-extensions/ch.tutteli.spek.extensions/-memoized-temp-folder/new-file.html
+$dokka.location:ch.tutteli.spek.extensions/MemoizedTempFolder/newFolder/#kotlin.String/PointingToDeclaration/tutteli-spek-extensions/ch.tutteli.spek.extensions/-memoized-temp-folder/new-folder.html
+$dokka.location:ch.tutteli.spek.extensions/MemoizedTempFolder/newSymbolicLink/#kotlin.String#java.nio.file.Path/PointingToDeclaration/tutteli-spek-extensions/ch.tutteli.spek.extensions/-memoized-temp-folder/new-symbolic-link.html
+$dokka.location:ch.tutteli.spek.extensions/MemoizedTempFolder/resolve/#kotlin.String/PointingToDeclaration/tutteli-spek-extensions/ch.tutteli.spek.extensions/-memoized-temp-folder/resolve.html
+$dokka.location:ch.tutteli.spek.extensions/MemoizedTempFolder/tmpDir/#/PointingToDeclaration/tutteli-spek-extensions/ch.tutteli.spek.extensions/-memoized-temp-folder/tmp-dir.html
+$dokka.location:ch.tutteli.spek.extensions/MemoizedTempFolder/withinTmpDir/#kotlin.Function1[java.nio.file.Path,TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/tutteli-spek-extensions/ch.tutteli.spek.extensions/-memoized-temp-folder/within-tmp-dir.html
+ch.tutteli.spek.extensions
+

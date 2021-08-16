@@ -1,6 +1,6 @@
 <!-- for master -->
 
-[![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/tutteli-spek-extensions/images/download.svg)](https://bintray.com/robstoll/tutteli-jars/tutteli-spek-extensions/_latestVersion)
+[![Download](https://img.shields.io/badge/Download-1.2.1-%23007ec6)](https://search.maven.org/artifact/ch.tutteli.tutteli-spek-extensions/tutteli-spek-extensions/1.2.1/jar)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
 [![Build Status Ubuntu](https://github.com/robstoll/tutteli-spek-extensions/workflows/Ubuntu/badge.svg?event=push)](https://github.com/robstoll/tutteli-spek-extensions/actions?query=workflow%3AUbuntu+branch%3Amaster)
 [![Build Status Windows](https://github.com/robstoll/tutteli-spek-extensions/workflows/Windows/badge.svg?event=push)](https://github.com/robstoll/tutteli-spek-extensions/actions?query=workflow%3AWindows+branch%3Amaster)
@@ -9,7 +9,7 @@
 
 <!-- for a specific release -->
 <!--
-[![Download](https://img.shields.io/badge/Download-1.2.1-%23007ec6)](https://bintray.com/robstoll/tutteli-jars/tutteli-spek-extensions/1.2.1 "Download 1.2.1 from Bintray")
+[![Download](https://img.shields.io/badge/Download-1.2.1-%23007ec6)](https://search.maven.org/artifact/ch.tutteli.tutteli-spek-extensions/tutteli-spek-extensions/1.2.1/jar)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
 -->
 
@@ -18,22 +18,12 @@ A set of [Spek](http://spekframework.org/) extensions such as [MemoizedTempFolde
 
 # Installation
 
-*gradle*
-```groovy
-repositories {
-    mavenCentral()
+tutteli-spek-extensions is published to maven central.
 
-    // or
-    // jcenter()
-
-    // or the following repo    
-    // maven {
-    //     url  "https://dl.bintray.com/robstoll/tutteli-jars" 
-    // }
-}
-
+```
+repositories { mavenCentral() }
 dependencies {
-    testImplementation 'ch.tutteli.spek:tutteli-spek-extensions:1.2.1'
+    testImplementation("ch.tutteli.spek:tutteli-spek-extensions:1.2.1")
 }
 ```
 
@@ -65,7 +55,7 @@ object MySpec: Spek({
 Pass a `CachingMode` if required (see [Caching modes @ spekframework.org](https://www.spekframework.org/core-concepts/#caching-modes))
 For instance: 
 ```kotlin
-import ch.tutteli.atrium.api.fluent.en_GB.jdk8.*
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.verbs.expect
 import memoizedTempFolder
 import org.spekframework.spek2.Spek
