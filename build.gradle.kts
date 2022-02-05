@@ -19,7 +19,7 @@ plugins {
     id("org.sonarqube") version "3.3"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     // necessary because spek is an unnamed module, drop again in case https://github.com/spekframework/spek/issues/981 is resolved
-    id("de.jjohannes.extra-java-module-info") version "0.10"
+    id("de.jjohannes.extra-java-module-info") version "0.11"
 }
 val atriumVersion by extra("0.17.0-RC1")
 val niokVersion by extra("1.4.7")
