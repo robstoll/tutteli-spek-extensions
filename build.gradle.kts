@@ -21,7 +21,7 @@ plugins {
     // necessary because spek is an unnamed module, drop again in case https://github.com/spekframework/spek/issues/981 is resolved
     id("de.jjohannes.extra-java-module-info") version "0.11"
 }
-val atriumVersion by extra("0.17.0-RC1")
+val atriumVersion by extra("0.18.0")
 val niokVersion by extra("1.4.7")
 val spekVersion by extra("2.0.16")
 
