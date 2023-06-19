@@ -23,7 +23,7 @@ plugins {
 }
 val atriumVersion by extra("0.17.0-RC1")
 val niokVersion by extra("1.4.7")
-val spekVersion by extra("2.0.16")
+val spekVersion by extra("2.0.19")
 
 repositories {
     mavenCentral()
